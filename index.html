@@ -58,7 +58,7 @@
       content: '';
       position: absolute;
       inset: -20px; /* overshoot to hide blur edges */
-      background: url('couple.JPG') no-repeat center 15% / cover;
+      background: url('couple.JPG') no-repeat 35% 15% / cover;
       filter: blur(1px);
       transform: scale(1.06);
       z-index: 0;
@@ -154,16 +154,16 @@
     .scroll-hint::after { content: ' ↓'; }
 
     /* ── COUNTDOWN ── */
-    #countdown { background: var(--sage); color: #fff; padding: 4rem 1.5rem; }
-    #countdown .section-label { color: #c9d9c4; }
-    #countdown h2 { color: #fff; }
+    #countdown { background: var(--cream); color: var(--ink); padding: 4rem 1.5rem; }
+    #countdown .section-label { color: var(--gold); }
+    #countdown h2 { color: var(--ink); }
     .countdown-grid {
       display: flex; justify-content: center;
       gap: 1.2rem; flex-wrap: wrap; margin-top: 2rem;
     }
     .countdown-box {
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(42,36,32,.05);
+      border: 1px solid rgba(184,146,74,.3);
       border-radius: 6px;
       padding: 1.3rem 1.6rem;
       min-width: 84px; text-align: center;
