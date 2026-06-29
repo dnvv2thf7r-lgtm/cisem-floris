@@ -59,7 +59,7 @@
       position: absolute;
       inset: -20px; /* overshoot to hide blur edges */
       background: url('couple.JPG') no-repeat center 15% / cover;
-      filter: blur(5px);
+      filter: blur(1px);
       transform: scale(1.06);
       z-index: 0;
     }
@@ -445,8 +445,8 @@
 <div id="petals"></div>
 
 <nav id="main-nav">
-  <a href="#invitation">Uitnodiging</a>
   <a href="#countdown">Aftellen</a>
+  <a href="#invitation">Uitnodiging</a>
   <a href="#venue">Locatie</a>
   <a href="#logistics">Hotel & Vervoer</a>
   <a href="#rsvp">RSVP</a>
@@ -471,6 +471,20 @@
   <div class="hero-rule"></div>
   <p class="hero-venue fade-in">Villa Marquem Çeşme &nbsp;·&nbsp; İzmir, Turkije</p>
   <span class="scroll-hint">Scroll</span>
+</section>
+
+<!-- ─── COUNTDOWN ─── -->
+<section id="countdown">
+  <div class="section-inner">
+    <p class="section-label fade-in">Nog even geduld</p>
+    <h2 class="fade-in">Bijna zover!</h2>
+    <div class="countdown-grid fade-in">
+      <div class="countdown-box"><span class="countdown-num" id="cd-days">—</span><span class="countdown-label">Dagen</span></div>
+      <div class="countdown-box"><span class="countdown-num" id="cd-hours">—</span><span class="countdown-label">Uren</span></div>
+      <div class="countdown-box"><span class="countdown-num" id="cd-mins">—</span><span class="countdown-label">Minuten</span></div>
+      <div class="countdown-box"><span class="countdown-num" id="cd-secs">—</span><span class="countdown-label">Seconden</span></div>
+    </div>
+  </div>
 </section>
 
 <!-- ─── INVITATION + ARTWORK ─── -->
@@ -547,20 +561,6 @@
 
   </div>
 
-</section>
-
-<!-- ─── COUNTDOWN ─── -->
-<section id="countdown">
-  <div class="section-inner">
-    <p class="section-label fade-in">Nog even geduld</p>
-    <h2 class="fade-in">Bijna zover!</h2>
-    <div class="countdown-grid fade-in">
-      <div class="countdown-box"><span class="countdown-num" id="cd-days">—</span><span class="countdown-label">Dagen</span></div>
-      <div class="countdown-box"><span class="countdown-num" id="cd-hours">—</span><span class="countdown-label">Uren</span></div>
-      <div class="countdown-box"><span class="countdown-num" id="cd-mins">—</span><span class="countdown-label">Minuten</span></div>
-      <div class="countdown-box"><span class="countdown-num" id="cd-secs">—</span><span class="countdown-label">Seconden</span></div>
-    </div>
-  </div>
 </section>
 
 <!-- ─── VENUE + MAP ─── -->
