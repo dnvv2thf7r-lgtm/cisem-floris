@@ -210,11 +210,13 @@
       position: absolute;
       inset: 0;
       background: linear-gradient(to bottom,
-        rgba(247,242,233,0.93) 0%,
-        rgba(247,242,233,0.72) 30%,
-        rgba(247,242,233,0.60) 55%,
-        rgba(247,242,233,0.75) 82%,
-        rgba(247,242,233,0.97) 100%
+        rgba(247,242,233,1.00)  0%,
+        rgba(247,242,233,0.88)  9%,
+        rgba(247,242,233,0.65) 28%,
+        rgba(247,242,233,0.55) 50%,
+        rgba(247,242,233,0.65) 72%,
+        rgba(247,242,233,0.88) 91%,
+        rgba(247,242,233,1.00) 100%
       );
       pointer-events: none;
       z-index: 0;
@@ -419,6 +421,13 @@
       .countdown-box { padding: 1rem 1.1rem; min-width: 68px; }
       nav { gap: .7rem; font-size: .62rem; }
       .hero-ruled-text { font-size: 1.8rem; }
+      /* Hero photo: full bleed on mobile, matching artwork width */
+      .hero-photo-wrap {
+        max-width: none;
+        width: calc(100% + 3rem); /* cancel the section's 1.5rem side padding × 2 */
+        margin-left: -1.5rem;
+        margin-right: -1.5rem;
+      }
     }
   </style>
 </head>
