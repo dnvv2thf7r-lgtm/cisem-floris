@@ -24,7 +24,7 @@
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--cream);
+      background: #8f9477;
       color: var(--ink);
       font-family: 'Cormorant Garamond', serif;
       overflow-x: hidden;
@@ -42,97 +42,101 @@
 
     /* ── HERO ── */
     #hero {
-      background: var(--cream);
+      min-height: 100svh;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       text-align: center;
-      padding: 3.5rem 1.5rem 2rem;
+      padding: 4rem 1.5rem 3rem;
       position: relative;
+      overflow: hidden;
+      background: #8f9477;
     }
+    /* Blurred couple photo as background */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: -20px; /* overshoot to hide blur edges */
+      background: url('couple.JPG') no-repeat center 15% / cover;
+      filter: blur(5px);
+      transform: scale(1.06);
+      z-index: 0;
+    }
+    /* Semi-transparent overlay for text readability */
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(143, 148, 119, 0.42);
+      z-index: 1;
+    }
+    /* All hero text above the blurred photo */
+    #hero > * { position: relative; z-index: 2; }
 
-    /* "Wij gaan trouwen!" with ruling lines — matches PDF top heading */
+    /* "Wij gaan trouwen!" with ruling lines */
     .hero-ruled {
       display: flex;
       align-items: center;
       gap: 1rem;
       width: 100%;
       max-width: 480px;
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
     }
     .hero-ruled::before,
     .hero-ruled::after {
       content: '';
       flex: 1;
       height: 1px;
-      background: var(--ink);
-      opacity: 0.35;
+      background: rgba(255,255,255,0.6);
     }
     .hero-ruled-text {
       font-family: 'Great Vibes', cursive;
       font-size: clamp(2rem, 7vw, 3rem);
-      color: var(--ink);
+      color: #fff;
       white-space: nowrap;
       line-height: 1;
+      text-shadow: 0 1px 12px rgba(0,0,0,0.2);
     }
 
-    /* Couple photo */
-    .hero-photo-wrap {
-      width: 100%;
-      max-width: 420px;
-      margin: 0 auto;
-      border-radius: 2px;
-      overflow: hidden;
-      /* Fade top and bottom into cream background — matches PDF blend */
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 88%, transparent 100%);
-      mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 88%, transparent 100%);
-    }
-    .hero-photo-wrap img {
-      width: 100%;
-      display: block;
-      object-fit: cover;
-      object-position: center top;
-      max-height: 580px;
-    }
-
-    /* Names block — matches PDF large script with & accent */
+    /* Names block */
     .hero-names-block {
-      margin-top: 2rem;
+      margin-top: 0;
       line-height: 1;
     }
     .hero-name {
       font-family: 'Great Vibes', cursive;
       font-size: clamp(3.2rem, 11vw, 5.5rem);
-      color: var(--ink);
+      color: #fff;
       display: block;
       line-height: 1.1;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.2);
     }
     .hero-amp {
       font-family: 'Great Vibes', cursive;
       font-size: clamp(4rem, 14vw, 7rem);
-      color: var(--sage);
+      color: rgba(255,255,255,0.9);
       display: block;
       line-height: 1;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.2);
     }
-
     .hero-date {
       margin-top: 1.2rem;
       font-size: clamp(1rem, 3.5vw, 1.3rem);
       letter-spacing: .5rem;
-      color: var(--ink);
+      color: rgba(255,255,255,0.92);
       font-weight: 400;
     }
     .hero-rule {
       width: 100px;
       height: 1px;
-      background: var(--ink);
-      opacity: .3;
+      background: rgba(255,255,255,0.45);
       margin: 1.4rem auto;
     }
     .hero-venue {
       font-size: clamp(.85rem, 2.5vw, 1rem);
       font-style: italic;
-      color: var(--muted);
+      color: rgba(255,255,255,0.75);
       letter-spacing: .05rem;
     }
     .scroll-hint {
@@ -140,7 +144,7 @@
       font-size: .7rem;
       letter-spacing: .25rem;
       text-transform: uppercase;
-      color: var(--muted);
+      color: rgba(255,255,255,0.6);
       animation: bounce 2s ease-in-out infinite;
     }
     @keyframes bounce {
@@ -193,43 +197,47 @@
 
     /* ── ARTWORK / INVITATION SECTION ── */
     #invitation {
-      /* Artwork at full width, natural proportional height — no repeat, no crop */
-      background-image: url('artwork.JPG');
-      background-repeat: no-repeat;
-      background-position: top center;
-      background-size: 100% auto;
-      background-color: var(--cream);
-      /* Section grows to exactly match artwork's aspect ratio (2600/1812 ≈ 1.435) */
+      background-color: #8f9477;
       min-height: calc(100vw * 1.435);
       position: relative;
       padding: 5rem 1.5rem;
     }
-    /* Top fade + mid transparency overlay */
+    /*
+      Artwork sits here as ::before.
+      mask-size matches the artwork's exact proportions so the fade percentages
+      (0% top, 100% bottom) map directly onto the image's own height — not the
+      section height. This guarantees a smooth fade at BOTH ends of the painting
+      regardless of how tall the section is due to text content.
+    */
     #invitation::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom,
-        rgba(247,242,233,1.00)  0%,
-        rgba(247,242,233,0.88)  8%,
-        rgba(247,242,233,0.58) 22%,
-        rgba(247,242,233,0.50) 50%,
-        rgba(247,242,233,0.58) 78%
+      background: url('artwork.JPG') no-repeat top center / 100% auto;
+      /* Mask fades tied to the image dimensions */
+      -webkit-mask-image: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(0,0,0,0.55) 7%,
+        rgba(0,0,0,0.55) 83%,
+        transparent 100%
       );
+      mask-image: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(0,0,0,0.55) 7%,
+        rgba(0,0,0,0.55) 83%,
+        transparent 100%
+      );
+      /* Lock mask to artwork's aspect ratio (2600/1812) */
+      -webkit-mask-size: 100% calc(100vw * 1.435);
+      mask-size: 100% calc(100vw * 1.435);
+      -webkit-mask-position: top center;
+      mask-position: top center;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
       pointer-events: none;
-      z-index: 1;
+      z-index: 0;
     }
-    /* Dedicated bottom fade — always anchored to the section's actual bottom edge */
-    #invitation::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 22%;
-      background: linear-gradient(to bottom, transparent, #f7f2e9);
-      pointer-events: none;
-      z-index: 2;
-    }
-    #invitation .section-inner { position: relative; z-index: 3; }
+    #invitation .section-inner { position: relative; z-index: 1; }
 
     /* Schedule — matches PDF: simple centered lines, no dots */
     .schedule {
@@ -429,13 +437,6 @@
       .countdown-box { padding: 1rem 1.1rem; min-width: 68px; }
       nav { gap: .7rem; font-size: .62rem; }
       .hero-ruled-text { font-size: 1.8rem; }
-      /* Hero photo: full bleed on mobile, matching artwork width */
-      .hero-photo-wrap {
-        max-width: none;
-        width: calc(100% + 3rem); /* cancel the section's 1.5rem side padding × 2 */
-        margin-left: -1.5rem;
-        margin-right: -1.5rem;
-      }
     }
   </style>
 </head>
@@ -459,12 +460,7 @@
     <span class="hero-ruled-text">Wij gaan trouwen!</span>
   </div>
 
-  <!-- Couple photo -->
-  <div class="hero-photo-wrap fade-in">
-    <img src="couple.JPG" alt="Çisem & Floris" />
-  </div>
-
-  <!-- Names — Çisem & Floris in large script, & in sage -->
+  <!-- Names — Çisem & Floris in large script overlay on photo -->
   <div class="hero-names-block fade-in">
     <span class="hero-name">Çisem</span>
     <span class="hero-amp">&amp;</span>
