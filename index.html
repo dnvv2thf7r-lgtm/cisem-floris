@@ -193,33 +193,37 @@
 
     /* ── ARTWORK / INVITATION SECTION ── */
     #invitation {
-      position: relative;
-      padding: 5rem 1.5rem;
+      background: var(--cream);
+      padding: 5rem 1.5rem 0;
       overflow: hidden;
     }
-    /* Artwork background */
-    #invitation::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url('artwork.JPG');
-      background-size: 160%;
-      background-position: 30% center;
-      z-index: 0;
-    }
-    /* Cream overlay — matches the washed-out feel of the PDF */
-    #invitation::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(247, 242, 233, 0.82);
-      z-index: 1;
-    }
-    #invitation .section-inner {
+    /* Artwork sits below the text, full natural width */
+    .artwork-wrap {
       position: relative;
-      z-index: 2;
+      width: 100%;
+      margin-top: 3rem;
     }
-    #invitation h2 { color: var(--ink); }
+    .artwork-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      opacity: 0.45;
+    }
+    /* Fade artwork in from cream at top, out to cream at bottom */
+    .artwork-fade-top {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 35%;
+      background: linear-gradient(to bottom, var(--cream), transparent);
+      pointer-events: none;
+    }
+    .artwork-fade-bot {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 30%;
+      background: linear-gradient(to bottom, transparent, var(--cream));
+      pointer-events: none;
+    }
 
     /* Schedule — matches PDF: simple centered lines, no dots */
     .schedule {
@@ -460,22 +464,18 @@
   <span class="scroll-hint">Scroll</span>
 </section>
 
-<!-- ─── INVITATION + ARTWORK BACKGROUND ─── -->
+<!-- ─── INVITATION + ARTWORK ─── -->
 <section id="invitation">
   <div class="section-inner">
 
-    <!-- Invitation text — matches PDF copy -->
-    <p class="section-label fade-in">Uitnodiging</p>
-    <h2 class="fade-in">Wij nodigen jullie uit!</h2>
-
-    <p class="body-text fade-in">
+    <p class="body-text fade-in" style="text-align:center;">
       Met grote vreugde kondigen wij aan dat we gaan trouwen!<br />
-      En onze liefde vieren we graag met jou.
+      En onze liefde vieren we graag met jou!
     </p>
 
     <br />
 
-    <p class="body-text fade-in">
+    <p class="body-text fade-in" style="text-align:center;">
       We nodigen jullie uit voor de ceremonie, het diner en het avondfeest.
       Indien gewenst verzorgen wij met plezier verblijf van 15 tot 17 augustus
       in een nabijgelegen hotel, evenals het transport vanaf de luchthaven en
@@ -485,7 +485,7 @@
 
     <br /><br />
 
-    <!-- Schedule — matches PDF style: centered, time + name, no dots -->
+    <!-- Schedule — PDF style: centered, time + name -->
     <div class="schedule fade-in">
       <div class="schedule-item">
         <span class="schedule-time">17:00</span>
@@ -501,22 +501,48 @@
       </div>
     </div>
 
-    <!-- Address block — matches PDF ADRES section -->
+    <!-- ADRES — exact PDF wording -->
     <div class="address-block fade-in">
       <div class="addr-label">Adres</div>
       <div class="addr-venue">Villa Marquem Çeşme</div>
       <div class="addr-street">
-        Altınkum Mah. 255 Sk. No: 48<br />
-        Çeşme / İzmir, Turkije
+        Altınkum Mah. 255<br />
+        Sk. No: 48 Çeşme / İzmir, Turkije
       </div>
+    </div>
+
+    <!-- DRESSCODE — exact PDF wording, shown inline here as in PDF -->
+    <div class="address-block fade-in" style="margin-top:1.8rem;">
+      <div class="addr-label">Dresscode</div>
+      <div class="addr-venue">Gala / Feestelijk</div>
     </div>
 
     <br /><br />
 
-    <p class="body-text fade-in" style="font-style:italic; color:var(--ink);">
+    <p class="body-text fade-in" style="text-align:center; color:var(--ink);">
       We kijken er enorm naar uit en hopen jullie daar te mogen verwelkomen!
     </p>
 
+    <br />
+
+    <p class="body-text fade-in" style="text-align:center;">
+      Laat je ons graag uiterlijk voor <strong>1 juli 2026</strong> weten wanneer
+      je arriveert op İzmir luchthaven en of je gebruik wilt maken van het hotel en vervoer?
+    </p>
+
+    <br /><br />
+
+    <p class="fade-in" style="text-align:center; font-family:'Great Vibes',cursive; font-size:clamp(1.6rem,5vw,2.2rem); color:var(--ink);">
+      Liefs, Çisem &amp; Floris
+    </p>
+
+  </div>
+
+  <!-- Artwork fades in below the text, full natural width -->
+  <div class="artwork-wrap">
+    <img src="artwork.JPG" class="artwork-img" alt="artpiece by Max Thuijs" />
+    <div class="artwork-fade-top"></div>
+    <div class="artwork-fade-bot"></div>
   </div>
 </section>
 
@@ -580,26 +606,14 @@
   </div>
 </section>
 
-<!-- ─── DRESSCODE ─── -->
-<section id="dresscode">
-  <div class="section-inner">
-    <p class="section-label fade-in">Kleding</p>
-    <h2 class="fade-in">Dresscode</h2>
-    <div class="dress-badge fade-in">Gala / Feestelijk</div>
-    <br /><br />
-    <p class="body-text fade-in">
-      We vieren onze mooiste dag op een bijzondere locatie aan de Turkse kust — kleed je feestelijk en geniet!
-    </p>
-  </div>
-</section>
-
 <!-- ─── RSVP ─── -->
 <section id="rsvp">
   <div class="section-inner">
     <p class="section-label fade-in">Aanmelden</p>
     <h2 class="fade-in">RSVP</h2>
     <p class="body-text fade-in">
-      Laat ons graag uiterlijk <strong>1 juni 2026</strong> weten of je erbij bent, en of je gebruik wilt maken van het hotel en vervoer.
+      Laat je ons graag uiterlijk voor <strong>1 juli 2026</strong> weten wanneer
+      je arriveert op İzmir luchthaven en of je gebruik wilt maken van het hotel en vervoer?
     </p>
   </div>
   <form class="rsvp-form fade-in" id="rsvp-form">
