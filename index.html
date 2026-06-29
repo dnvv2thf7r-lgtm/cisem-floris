@@ -193,37 +193,33 @@
 
     /* ── ARTWORK / INVITATION SECTION ── */
     #invitation {
-      background: var(--cream);
-      padding: 5rem 1.5rem 0;
-      overflow: hidden;
-    }
-    /* Artwork sits below the text, full natural width */
-    .artwork-wrap {
+      /* Artwork at full width, natural proportional height — no repeat, no crop */
+      background-image: url('artwork.JPG');
+      background-repeat: no-repeat;
+      background-position: top center;
+      background-size: 100% auto;
+      background-color: var(--cream);
+      /* Section grows to exactly match artwork's aspect ratio (2600/1812 ≈ 1.435) */
+      min-height: calc(100vw * 1.435);
       position: relative;
-      width: 100%;
-      margin-top: 3rem;
+      padding: 5rem 1.5rem;
     }
-    .artwork-img {
-      display: block;
-      width: 100%;
-      height: auto;
-      opacity: 0.45;
-    }
-    /* Fade artwork in from cream at top, out to cream at bottom */
-    .artwork-fade-top {
+    /* Semi-transparent cream overlay: more opaque at top (text area) and bottom (fade to next section) */
+    #invitation::before {
+      content: '';
       position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 35%;
-      background: linear-gradient(to bottom, var(--cream), transparent);
+      inset: 0;
+      background: linear-gradient(to bottom,
+        rgba(247,242,233,0.93) 0%,
+        rgba(247,242,233,0.72) 30%,
+        rgba(247,242,233,0.60) 55%,
+        rgba(247,242,233,0.75) 82%,
+        rgba(247,242,233,0.97) 100%
+      );
       pointer-events: none;
+      z-index: 0;
     }
-    .artwork-fade-bot {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 30%;
-      background: linear-gradient(to bottom, transparent, var(--cream));
-      pointer-events: none;
-    }
+    #invitation .section-inner { position: relative; z-index: 1; }
 
     /* Schedule — matches PDF: simple centered lines, no dots */
     .schedule {
@@ -532,18 +528,12 @@
 
     <br /><br />
 
-    <p class="fade-in" style="text-align:center; font-family:'Great Vibes',cursive; font-size:clamp(1.6rem,5vw,2.2rem); color:var(--ink);">
-      Liefs, Çisem &amp; Floris
+    <p class="fade-in" style="text-align:center; font-family:'Great Vibes',cursive; font-size:clamp(1.6rem,5vw,2.2rem); color:var(--ink); line-height:1.4;">
+      Liefs,<br />Çisem &amp; Floris
     </p>
 
   </div>
 
-  <!-- Artwork fades in below the text, full natural width -->
-  <div class="artwork-wrap">
-    <img src="artwork.JPG" class="artwork-img" alt="artpiece by Max Thuijs" />
-    <div class="artwork-fade-top"></div>
-    <div class="artwork-fade-bot"></div>
-  </div>
 </section>
 
 <!-- ─── COUNTDOWN ─── -->
