@@ -6,11 +6,9 @@
   <title>Çisem & Floris — 16 augustus 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
-    /* ──────────────────────────────────────────
-       BASE
-    ────────────────────────────────────────── */
+    /* ── BASE ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -32,265 +30,287 @@
       overflow-x: hidden;
     }
 
-    /* Petal animation */
+    /* ── PETALS ── */
     @keyframes petalFall {
-      0%   { transform: translateY(-60px) rotate(0deg) translateX(0); opacity: 1; }
-      100% { transform: translateY(110vh)  rotate(360deg) translateX(80px); opacity: 0; }
+      0%   { transform: translateY(-60px) rotate(0deg) translateX(0); opacity: 0.8; }
+      100% { transform: translateY(110vh) rotate(400deg) translateX(60px); opacity: 0; }
     }
     .petal {
-      position: fixed;
-      top: -60px;
-      pointer-events: none;
-      z-index: 9999;
-      font-size: 1.4rem;
-      animation: petalFall linear infinite;
-      opacity: 0.7;
+      position: fixed; top: -60px; pointer-events: none;
+      z-index: 9999; animation: petalFall linear infinite; opacity: 0;
     }
 
-    /* ──────────────────────────────────────────
-       HERO
-    ────────────────────────────────────────── */
+    /* ── HERO ── */
     #hero {
-      min-height: 100svh;
+      background: var(--cream);
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       text-align: center;
-      padding: 3rem 1.5rem;
-      background: linear-gradient(175deg, #f9f5ee 0%, #ede5d4 60%, #d9cdb8 100%);
+      padding: 3.5rem 1.5rem 2rem;
       position: relative;
-      overflow: hidden;
     }
-    #hero::before {
+
+    /* "Wij gaan trouwen!" with ruling lines — matches PDF top heading */
+    .hero-ruled {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+      max-width: 480px;
+      margin-bottom: 2rem;
+    }
+    .hero-ruled::before,
+    .hero-ruled::after {
       content: '';
-      position: absolute;
-      inset: 0;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Ccircle cx='200' cy='200' r='180' fill='none' stroke='%23c9a96e' stroke-width='0.5' opacity='0.3'/%3E%3Ccircle cx='200' cy='200' r='140' fill='none' stroke='%23c9a96e' stroke-width='0.3' opacity='0.2'/%3E%3C/svg%3E") center/60% no-repeat;
+      flex: 1;
+      height: 1px;
+      background: var(--ink);
+      opacity: 0.35;
     }
-    .hero-ornament { font-size: 1.5rem; color: var(--gold); letter-spacing: .4rem; margin-bottom: 1.5rem; }
-    .hero-names {
+    .hero-ruled-text {
       font-family: 'Great Vibes', cursive;
-      font-size: clamp(3.5rem, 12vw, 7rem);
+      font-size: clamp(2rem, 7vw, 3rem);
       color: var(--ink);
-      line-height: 1.15;
-      text-shadow: 0 2px 20px rgba(180,150,100,.15);
+      white-space: nowrap;
+      line-height: 1;
     }
-    .hero-amp { color: var(--sage); font-size: clamp(4rem, 14vw, 8rem); display: block; line-height: 1; }
+
+    /* Couple photo */
+    .hero-photo-wrap {
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 0 4px 32px rgba(42,36,32,.12);
+    }
+    .hero-photo-wrap img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center top;
+      /* Show from top — the joyful faces and ring moment */
+      max-height: 560px;
+    }
+
+    /* Names block — matches PDF large script with & accent */
+    .hero-names-block {
+      margin-top: 2rem;
+      line-height: 1;
+    }
+    .hero-name {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(3.2rem, 11vw, 5.5rem);
+      color: var(--ink);
+      display: block;
+      line-height: 1.1;
+    }
+    .hero-amp {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(4rem, 14vw, 7rem);
+      color: var(--sage);
+      display: block;
+      line-height: 1;
+    }
+
     .hero-date {
-      margin-top: 1.5rem;
-      font-size: clamp(1rem, 3vw, 1.4rem);
-      letter-spacing: .35rem;
-      color: var(--muted);
-      font-weight: 300;
-      text-transform: uppercase;
+      margin-top: 1.2rem;
+      font-size: clamp(1rem, 3.5vw, 1.3rem);
+      letter-spacing: .5rem;
+      color: var(--ink);
+      font-weight: 400;
     }
-    .hero-divider { width: 80px; height: 1px; background: var(--gold); margin: 1.8rem auto; opacity: .6; }
-    .hero-sub {
+    .hero-rule {
+      width: 100px;
+      height: 1px;
+      background: var(--ink);
+      opacity: .3;
+      margin: 1.4rem auto;
+    }
+    .hero-venue {
+      font-size: clamp(.85rem, 2.5vw, 1rem);
       font-style: italic;
-      font-size: clamp(1rem, 2.5vw, 1.2rem);
       color: var(--muted);
-      max-width: 440px;
+      letter-spacing: .05rem;
     }
     .scroll-hint {
-      position: absolute;
-      bottom: 2rem;
-      font-size: .75rem;
-      letter-spacing: .2rem;
+      margin-top: 2.5rem;
+      font-size: .7rem;
+      letter-spacing: .25rem;
       text-transform: uppercase;
       color: var(--muted);
       animation: bounce 2s ease-in-out infinite;
     }
     @keyframes bounce {
       0%,100% { transform: translateY(0); }
-      50%      { transform: translateY(6px); }
+      50%      { transform: translateY(5px); }
     }
     .scroll-hint::after { content: ' ↓'; }
 
-    /* ──────────────────────────────────────────
-       SECTIONS SHARED
-    ────────────────────────────────────────── */
-    section { padding: 5rem 1.5rem; }
-    .section-inner { max-width: 720px; margin: 0 auto; text-align: center; }
-    .section-label {
-      font-size: .75rem;
-      letter-spacing: .35rem;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: .8rem;
-    }
-    h2 {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(2.4rem, 7vw, 3.8rem);
-      color: var(--ink);
-      margin-bottom: 1.2rem;
-    }
-    .body-text {
-      font-size: clamp(1rem, 2.5vw, 1.15rem);
-      line-height: 1.85;
-      color: var(--muted);
-      font-weight: 300;
-    }
-    .divider-leaf {
-      margin: 2rem auto;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      max-width: 260px;
-    }
-    .divider-leaf::before, .divider-leaf::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--gold);
-      opacity: .5;
-    }
-    .divider-leaf span { font-size: 1.1rem; }
-
-    /* ──────────────────────────────────────────
-       COUNTDOWN
-    ────────────────────────────────────────── */
-    #countdown { background: var(--sage); color: #fff; }
+    /* ── COUNTDOWN ── */
+    #countdown { background: var(--sage); color: #fff; padding: 4rem 1.5rem; }
     #countdown .section-label { color: #c9d9c4; }
     #countdown h2 { color: #fff; }
     .countdown-grid {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      margin-top: 2rem;
+      display: flex; justify-content: center;
+      gap: 1.2rem; flex-wrap: wrap; margin-top: 2rem;
     }
     .countdown-box {
       background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.25);
-      border-radius: 8px;
-      padding: 1.4rem 1.8rem;
-      min-width: 90px;
-      text-align: center;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 6px;
+      padding: 1.3rem 1.6rem;
+      min-width: 84px; text-align: center;
     }
     .countdown-num {
-      font-size: clamp(2.2rem, 6vw, 3.2rem);
-      font-weight: 300;
-      line-height: 1;
-      display: block;
+      font-size: clamp(2rem, 6vw, 3rem);
+      font-weight: 300; line-height: 1; display: block;
     }
     .countdown-label {
-      font-size: .7rem;
-      letter-spacing: .25rem;
-      text-transform: uppercase;
-      opacity: .7;
-      margin-top: .4rem;
-      display: block;
+      font-size: .65rem; letter-spacing: .22rem;
+      text-transform: uppercase; opacity: .7;
+      margin-top: .4rem; display: block;
     }
 
-    /* ──────────────────────────────────────────
-       TIMELINE
-    ────────────────────────────────────────── */
-    #timeline { background: var(--warm); }
-    .timeline {
-      position: relative;
-      max-width: 420px;
-      margin: 2.5rem auto 0;
+    /* ── SHARED SECTION STYLES ── */
+    section { padding: 5rem 1.5rem; }
+    .section-inner { max-width: 620px; margin: 0 auto; text-align: center; }
+    .section-label {
+      font-size: .72rem; letter-spacing: .35rem;
+      text-transform: uppercase; color: var(--gold); margin-bottom: .8rem;
     }
-    .timeline::before {
+    h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.2rem, 7vw, 3.4rem);
+      color: var(--ink); margin-bottom: 1rem;
+    }
+    .body-text {
+      font-size: clamp(1rem, 2.5vw, 1.12rem);
+      line-height: 1.9; color: var(--muted); font-weight: 300;
+    }
+
+    /* ── ARTWORK / INVITATION SECTION ── */
+    #invitation {
+      position: relative;
+      padding: 5rem 1.5rem;
+      overflow: hidden;
+    }
+    /* Artwork background */
+    #invitation::before {
       content: '';
       position: absolute;
-      left: 50%;
-      top: 0; bottom: 0;
-      width: 1px;
-      background: var(--gold);
-      opacity: .4;
-      transform: translateX(-50%);
+      inset: 0;
+      background-image: url('images/artwork.jpg');
+      background-size: cover;
+      background-position: center 20%;
+      z-index: 0;
     }
-    .timeline-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 1.5rem;
-      margin-bottom: 2.5rem;
-      position: relative;
-    }
-    .timeline-item:nth-child(odd) { flex-direction: row-reverse; text-align: right; }
-    .timeline-dot {
-      width: 12px; height: 12px;
-      background: var(--sage);
-      border-radius: 50%;
-      border: 2px solid var(--cream);
-      flex-shrink: 0;
-      margin-top: .35rem;
-      position: relative;
+    /* Cream overlay — matches the washed-out feel of the PDF */
+    #invitation::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(247, 242, 233, 0.82);
       z-index: 1;
     }
-    .timeline-content { flex: 1; }
-    .timeline-time {
-      font-size: .8rem;
-      letter-spacing: .2rem;
-      color: var(--gold);
-      text-transform: uppercase;
+    #invitation .section-inner {
+      position: relative;
+      z-index: 2;
     }
-    .timeline-title {
-      font-size: clamp(1.1rem, 3vw, 1.35rem);
-      font-weight: 500;
-      margin-top: .2rem;
-    }
-    .timeline-desc { font-size: .95rem; color: var(--muted); margin-top: .2rem; }
+    #invitation h2 { color: var(--ink); }
 
-    /* ──────────────────────────────────────────
-       VENUE
-    ────────────────────────────────────────── */
-    #venue .venue-name {
-      font-size: clamp(1.3rem, 4vw, 1.8rem);
+    /* Schedule — matches PDF: simple centered lines, no dots */
+    .schedule {
+      margin: 2rem auto 0;
+      max-width: 320px;
+      text-align: center;
+    }
+    .schedule-item {
+      padding: 1.1rem 0;
+      border-bottom: 1px solid rgba(184,146,74,.25);
+    }
+    .schedule-item:last-child { border-bottom: none; }
+    .schedule-time {
+      font-size: .78rem;
+      letter-spacing: .3rem;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: .2rem;
+    }
+    .schedule-name {
+      font-size: clamp(1.1rem, 3.5vw, 1.4rem);
       font-weight: 500;
-      margin: .5rem 0;
+      color: var(--ink);
+    }
+
+    /* ADRES block inside invitation section — matches PDF */
+    .address-block {
+      margin-top: 2.5rem;
+      text-align: center;
+    }
+    .address-block .addr-label {
+      font-size: .7rem;
+      letter-spacing: .35rem;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .5rem;
+    }
+    .address-block .addr-venue {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 3vw, 1.3rem);
+      color: var(--ink);
+    }
+    .address-block .addr-street {
+      font-size: .95rem;
+      color: var(--muted);
+      margin-top: .3rem;
+      line-height: 1.6;
+    }
+
+    /* ── TIMELINE (kept for programma section) ── */
+    #timeline { background: var(--warm); }
+
+    /* ── VENUE ── */
+    #venue .venue-name {
+      font-size: clamp(1.2rem, 4vw, 1.7rem);
+      font-weight: 500; margin: .5rem 0;
     }
     #venue .venue-addr { font-size: 1rem; color: var(--muted); font-style: italic; }
     .map-wrap {
-      margin: 2rem auto 0;
-      border-radius: 10px;
-      overflow: hidden;
-      max-width: 680px;
-      height: 300px;
+      margin: 2rem auto 0; border-radius: 8px; overflow: hidden;
+      max-width: 640px; height: 300px;
       border: 1px solid rgba(74,103,65,.2);
     }
     .map-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
     .map-btn {
-      display: inline-block;
-      margin-top: 1.2rem;
-      padding: .75rem 2rem;
-      background: var(--sage);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 4px;
-      font-size: .85rem;
-      letter-spacing: .15rem;
-      text-transform: uppercase;
+      display: inline-block; margin-top: 1.2rem;
+      padding: .7rem 2rem; background: var(--sage); color: #fff;
+      text-decoration: none; border-radius: 4px;
+      font-size: .82rem; letter-spacing: .15rem; text-transform: uppercase;
       transition: background .2s;
     }
     .map-btn:hover { background: var(--sage-lt); }
 
-    /* ──────────────────────────────────────────
-       HOTEL & TRANSPORT
-    ────────────────────────────────────────── */
-    #logistics { background: var(--warm); }
+    /* ── LOGISTICS ── */
+    #logistics { background: var(--cream); }
     .logistic-cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.4rem; margin-top: 2rem;
     }
     .logistic-card {
-      background: var(--cream);
-      border: 1px solid rgba(184,146,74,.25);
-      border-radius: 10px;
-      padding: 2rem 1.5rem;
-      text-align: center;
+      background: var(--warm);
+      border: 1px solid rgba(184,146,74,.2);
+      border-radius: 8px; padding: 1.8rem 1.4rem; text-align: center;
     }
-    .logistic-card .icon { font-size: 2rem; margin-bottom: .8rem; }
-    .logistic-card h3 { font-size: 1.2rem; margin-bottom: .5rem; }
-    .logistic-card p { font-size: .95rem; color: var(--muted); line-height: 1.6; }
+    .logistic-card .icon { font-size: 1.8rem; margin-bottom: .7rem; }
+    .logistic-card h3 { font-size: 1.15rem; margin-bottom: .4rem; }
+    .logistic-card p { font-size: .93rem; color: var(--muted); line-height: 1.6; }
 
-    /* ──────────────────────────────────────────
-       DRESSCODE
-    ────────────────────────────────────────── */
+    /* ── DRESSCODE ── */
     #dresscode { background: var(--sage); color: #fff; }
     #dresscode .section-label { color: #c9d9c4; }
     #dresscode h2 { color: #fff; }
@@ -298,85 +318,60 @@
     .dress-badge {
       display: inline-block;
       border: 1px solid rgba(255,255,255,.5);
-      border-radius: 4px;
-      padding: .6rem 2rem;
-      font-size: 1.1rem;
-      letter-spacing: .3rem;
+      border-radius: 3px;
+      padding: .55rem 2rem;
+      font-size: 1rem;
+      letter-spacing: .35rem;
       text-transform: uppercase;
       color: #fff;
-      margin-top: 1rem;
+      margin-top: .8rem;
     }
 
-
-    /* ──────────────────────────────────────────
-       RSVP
-    ────────────────────────────────────────── */
+    /* ── RSVP ── */
     #rsvp { background: var(--warm); }
     .rsvp-form {
       background: var(--cream);
-      border-radius: 12px;
-      padding: 2.5rem 2rem;
-      max-width: 560px;
+      border-radius: 10px;
+      padding: 2.2rem 1.8rem;
+      max-width: 540px;
       margin: 2rem auto 0;
       border: 1px solid rgba(184,146,74,.2);
       text-align: left;
     }
-    .form-row { margin-bottom: 1.4rem; }
+    .form-row { margin-bottom: 1.3rem; }
     .form-row label {
-      display: block;
-      font-size: .8rem;
-      letter-spacing: .2rem;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: .45rem;
+      display: block; font-size: .75rem; letter-spacing: .2rem;
+      text-transform: uppercase; color: var(--muted); margin-bottom: .4rem;
     }
     .form-row input,
     .form-row select,
     .form-row textarea {
-      width: 100%;
-      padding: .75rem 1rem;
-      background: #fff;
-      border: 1px solid rgba(184,146,74,.35);
-      border-radius: 6px;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
-      color: var(--ink);
-      outline: none;
-      transition: border-color .2s;
+      width: 100%; padding: .7rem .95rem;
+      background: #fff; border: 1px solid rgba(184,146,74,.3);
+      border-radius: 5px; font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; color: var(--ink); outline: none; transition: border-color .2s;
     }
     .form-row input:focus,
     .form-row select:focus,
     .form-row textarea:focus { border-color: var(--sage); }
-    .form-row textarea { resize: vertical; min-height: 90px; }
+    .form-row textarea { resize: vertical; min-height: 85px; }
     .form-two { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     .form-submit {
-      width: 100%;
-      padding: 1rem;
-      background: var(--sage);
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      letter-spacing: .15rem;
-      cursor: pointer;
-      transition: background .2s;
-      margin-top: .5rem;
+      width: 100%; padding: .95rem;
+      background: var(--sage); color: #fff; border: none;
+      border-radius: 5px; font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; letter-spacing: .15rem;
+      cursor: pointer; transition: background .2s; margin-top: .4rem;
     }
     .form-submit:hover { background: var(--sage-lt); }
     .form-submit:disabled { opacity: .6; cursor: not-allowed; }
     #rsvp-msg {
-      text-align: center;
-      margin-top: 1rem;
-      font-style: italic;
-      color: var(--sage);
-      min-height: 1.5rem;
+      text-align: center; margin-top: 1rem;
+      font-style: italic; color: var(--sage); min-height: 1.5rem;
     }
     #rsvp-msg.error { color: #c0392b; }
 
-    /* ──────────────────────────────────────────
-       FOOTER
-    ────────────────────────────────────────── */
+    /* ── FOOTER ── */
     footer {
       background: var(--sage);
       color: rgba(255,255,255,.85);
@@ -385,68 +380,54 @@
     }
     footer .footer-names {
       font-family: 'Great Vibes', cursive;
-      font-size: 2.6rem;
-      color: #fff;
-      margin-bottom: .5rem;
+      font-size: 2.4rem; color: #fff; margin-bottom: .4rem;
     }
-    footer .footer-date { font-size: .85rem; letter-spacing: .3rem; text-transform: uppercase; opacity: .6; }
-    footer .footer-contact { margin-top: 1.5rem; font-size: .9rem; line-height: 1.9; }
+    footer .footer-date {
+      font-size: .8rem; letter-spacing: .3rem;
+      text-transform: uppercase; opacity: .6;
+    }
+    footer .footer-contact { margin-top: 1.4rem; font-size: .88rem; line-height: 1.9; }
     footer a { color: rgba(255,255,255,.8); }
 
-    /* ──────────────────────────────────────────
-       NAV
-    ────────────────────────────────────────── */
+    /* ── NAV ── */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 1000;
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      padding: .8rem 1rem;
-      background: rgba(247,242,233,.9);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; justify-content: center; gap: 1.5rem;
+      padding: .75rem 1rem;
+      background: rgba(247,242,233,.92);
       backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(184,146,74,.2);
-      font-size: .72rem;
-      letter-spacing: .25rem;
-      text-transform: uppercase;
-      transform: translateY(-100%);
-      transition: transform .3s ease;
+      border-bottom: 1px solid rgba(184,146,74,.18);
+      font-size: .7rem; letter-spacing: .22rem; text-transform: uppercase;
+      transform: translateY(-100%); transition: transform .3s ease;
     }
     nav.visible { transform: translateY(0); }
     nav a { color: var(--muted); text-decoration: none; transition: color .2s; }
     nav a:hover { color: var(--sage); }
 
-    /* ──────────────────────────────────────────
-       ANIMATIONS
-    ────────────────────────────────────────── */
+    /* ── FADE-IN ── */
     .fade-in {
-      opacity: 0;
-      transform: translateY(24px);
+      opacity: 0; transform: translateY(20px);
       transition: opacity .7s ease, transform .7s ease;
     }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-    /* ──────────────────────────────────────────
-       RESPONSIVE
-    ────────────────────────────────────────── */
+    /* ── RESPONSIVE ── */
     @media (max-width: 480px) {
       .form-two { grid-template-columns: 1fr; }
-      .countdown-grid { gap: .75rem; }
-      .countdown-box { padding: 1rem 1.2rem; min-width: 72px; }
-      nav { gap: .8rem; font-size: .65rem; }
+      .countdown-grid { gap: .65rem; }
+      .countdown-box { padding: 1rem 1.1rem; min-width: 68px; }
+      nav { gap: .7rem; font-size: .62rem; }
+      .hero-ruled-text { font-size: 1.8rem; }
     }
   </style>
 </head>
 <body>
 
-<!-- Petals -->
 <div id="petals"></div>
 
-<!-- Sticky nav (appears after scroll) -->
 <nav id="main-nav">
   <a href="#countdown">Aftellen</a>
-  <a href="#timeline">Programma</a>
+  <a href="#invitation">Uitnodiging</a>
   <a href="#venue">Locatie</a>
   <a href="#logistics">Hotel & Vervoer</a>
   <a href="#rsvp">RSVP</a>
@@ -454,15 +435,27 @@
 
 <!-- ─── HERO ─── -->
 <section id="hero">
-  <div class="hero-ornament">✦ ✦ ✦</div>
-  <div class="hero-names fade-in">
-    Çisem
-    <span class="hero-amp">&amp;</span>
-    Floris
+
+  <!-- "Wij gaan trouwen!" with ruling lines — matches PDF -->
+  <div class="hero-ruled fade-in">
+    <span class="hero-ruled-text">Wij gaan trouwen!</span>
   </div>
+
+  <!-- Couple photo -->
+  <div class="hero-photo-wrap fade-in">
+    <img src="images/couple.jpg" alt="Çisem & Floris" />
+  </div>
+
+  <!-- Names — Çisem & Floris in large script, & in sage -->
+  <div class="hero-names-block fade-in">
+    <span class="hero-name">Çisem</span>
+    <span class="hero-amp">&amp;</span>
+    <span class="hero-name">Floris</span>
+  </div>
+
   <div class="hero-date fade-in">16 · 08 · 2026</div>
-  <div class="hero-divider"></div>
-  <p class="hero-sub fade-in">Villa Marquem Çeşme &nbsp;·&nbsp; İzmir, Turkije</p>
+  <div class="hero-rule"></div>
+  <p class="hero-venue fade-in">Villa Marquem Çeşme &nbsp;·&nbsp; İzmir, Turkije</p>
   <span class="scroll-hint">Scroll</span>
 </section>
 
@@ -480,17 +473,21 @@
   </div>
 </section>
 
-<!-- ─── INVITATION TEXT ─── -->
+<!-- ─── INVITATION + ARTWORK BACKGROUND ─── -->
 <section id="invitation">
   <div class="section-inner">
-    <p class="section-label fade-in">Welkom</p>
-    <h2 class="fade-in">Wij gaan trouwen!</h2>
-    <div class="divider-leaf fade-in"><span>🌿</span></div>
+
+    <!-- Invitation text — matches PDF copy -->
+    <p class="section-label fade-in">Uitnodiging</p>
+    <h2 class="fade-in">Wij nodigen jullie uit!</h2>
+
     <p class="body-text fade-in">
       Met grote vreugde kondigen wij aan dat we gaan trouwen!<br />
       En onze liefde vieren we graag met jou.
     </p>
+
     <br />
+
     <p class="body-text fade-in">
       We nodigen jullie uit voor de ceremonie, het diner en het avondfeest.
       Indien gewenst verzorgen wij met plezier verblijf van 15 tot 17 augustus
@@ -498,48 +495,45 @@
       naar de trouwlocatie. Als jullie dit liever zelf organiseren kan dat
       natuurlijk ook.
     </p>
-    <br />
+
+    <br /><br />
+
+    <!-- Schedule — matches PDF style: centered, time + name, no dots -->
+    <div class="schedule fade-in">
+      <div class="schedule-item">
+        <span class="schedule-time">17:00</span>
+        <span class="schedule-name">Ceremonie</span>
+      </div>
+      <div class="schedule-item">
+        <span class="schedule-time">&nbsp;</span>
+        <span class="schedule-name">Diner</span>
+      </div>
+      <div class="schedule-item">
+        <span class="schedule-time">20:00</span>
+        <span class="schedule-name">Feest</span>
+      </div>
+    </div>
+
+    <!-- Address block — matches PDF ADRES section -->
+    <div class="address-block fade-in">
+      <div class="addr-label">Adres</div>
+      <div class="addr-venue">Villa Marquem Çeşme</div>
+      <div class="addr-street">
+        Altınkum Mah. 255 Sk. No: 48<br />
+        Çeşme / İzmir, Turkije
+      </div>
+    </div>
+
+    <br /><br />
+
     <p class="body-text fade-in" style="font-style:italic; color:var(--ink);">
       We kijken er enorm naar uit en hopen jullie daar te mogen verwelkomen!
     </p>
+
   </div>
 </section>
 
-<!-- ─── TIMELINE ─── -->
-<section id="timeline">
-  <div class="section-inner">
-    <p class="section-label fade-in">De dag</p>
-    <h2 class="fade-in">Programma</h2>
-    <div class="timeline fade-in">
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <div class="timeline-time">17:00</div>
-          <div class="timeline-title">Ceremonie</div>
-          <div class="timeline-desc">De huwelijksceremonie</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <div class="timeline-time">Daarna</div>
-          <div class="timeline-title">Diner</div>
-          <div class="timeline-desc">Gezamenlijk diner bij de locatie</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <div class="timeline-time">20:00</div>
-          <div class="timeline-title">Feest</div>
-          <div class="timeline-desc">Avondfeest — de nacht is van ons!</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── VENUE ─── -->
+<!-- ─── VENUE + MAP ─── -->
 <section id="venue">
   <div class="section-inner">
     <p class="section-label fade-in">Locatie</p>
@@ -633,9 +627,9 @@
         </select>
       </div>
     </div>
-    <div class="form-row" id="row-arrival">
+    <div class="form-row">
       <label>Aankomsttijd İzmir luchthaven</label>
-      <input type="datetime-local" name="arrival" placeholder="Bijv. 15 aug 14:30" />
+      <input type="datetime-local" name="arrival" />
     </div>
     <div class="form-two">
       <div class="form-row">
@@ -679,160 +673,70 @@
     <a href="https://wa.me/31640590089">WhatsApp / bellen: +31 640 590 089</a><br />
     <a href="mailto:onstwedderlist@upcmail.nl">onstwedderlist@upcmail.nl</a>
   </div>
-  <div style="margin-top:2rem; font-size:.7rem; opacity:.4;">Met liefde gemaakt ♡</div>
+  <div style="margin-top:2rem; font-size:.68rem; opacity:.35; font-style:italic;">artpiece by Max Thuijs</div>
 </footer>
 
-
-<!-- ─── SCRIPTS ─── -->
 <script>
-// ── CONFIG ─────────────────────────────────────────────────────────────────
-// STEP 1: Paste your Google Apps Script Web App URL here after you deploy it.
-// See README section below for full instructions.
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwP2I-FeutrnI0WDA8gvXu-0HsewRTk6l9LVL5Cbkj8A35e3w6PAQuD2dHvxx8Y1qei/exec';
-
-// Wedding date/time: 16 August 2026 at 17:00 GMT+3 = 14:00 UTC
 const WEDDING_DATE = new Date('2026-08-16T14:00:00Z');
 
-// ── PETALS ─────────────────────────────────────────────────────────────────
-(function spawnPetals() {
-  const petals = ['🌸', '🌺', '✿', '❀'];
-  const container = document.getElementById('petals');
-  for (let i = 0; i < 12; i++) {
+// Petals
+(function() {
+  const symbols = ['🌸','🌺','✿','❀'];
+  const el = document.getElementById('petals');
+  for (let i = 0; i < 14; i++) {
     const p = document.createElement('div');
     p.className = 'petal';
-    p.textContent = petals[Math.floor(Math.random() * petals.length)];
-    p.style.left = Math.random() * 100 + 'vw';
-    p.style.animationDuration = (8 + Math.random() * 10) + 's';
-    p.style.animationDelay = (Math.random() * 10) + 's';
-    p.style.fontSize = (0.9 + Math.random() * 0.8) + 'rem';
-    container.appendChild(p);
+    p.textContent = symbols[i % symbols.length];
+    p.style.cssText = `left:${Math.random()*100}vw;font-size:${0.8+Math.random()*0.9}rem;animation-duration:${9+Math.random()*10}s;animation-delay:${Math.random()*12}s`;
+    el.appendChild(p);
   }
 })();
 
-// ── COUNTDOWN ──────────────────────────────────────────────────────────────
-function updateCountdown() {
-  const now  = new Date();
-  const diff = WEDDING_DATE - now;
-  if (diff <= 0) {
-    document.getElementById('cd-days').textContent  = '0';
-    document.getElementById('cd-hours').textContent = '0';
-    document.getElementById('cd-mins').textContent  = '0';
-    document.getElementById('cd-secs').textContent  = '0';
+// Countdown
+function tick() {
+  const d = WEDDING_DATE - new Date();
+  if (d <= 0) {
+    ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => document.getElementById(id).textContent = '0');
     return;
   }
-  const days  = Math.floor(diff / 86400000);
-  const hours = Math.floor((diff % 86400000) / 3600000);
-  const mins  = Math.floor((diff % 3600000)  / 60000);
-  const secs  = Math.floor((diff % 60000)    / 1000);
-  document.getElementById('cd-days').textContent  = String(days).padStart(2,'0');
-  document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
-  document.getElementById('cd-mins').textContent  = String(mins).padStart(2,'0');
-  document.getElementById('cd-secs').textContent  = String(secs).padStart(2,'0');
+  document.getElementById('cd-days').textContent  = String(Math.floor(d/86400000)).padStart(2,'0');
+  document.getElementById('cd-hours').textContent = String(Math.floor((d%86400000)/3600000)).padStart(2,'0');
+  document.getElementById('cd-mins').textContent  = String(Math.floor((d%3600000)/60000)).padStart(2,'0');
+  document.getElementById('cd-secs').textContent  = String(Math.floor((d%60000)/1000)).padStart(2,'0');
 }
-updateCountdown();
-setInterval(updateCountdown, 1000);
+tick(); setInterval(tick, 1000);
 
-// ── NAV SHOW ON SCROLL ──────────────────────────────────────────────────────
+// Nav
 const nav = document.getElementById('main-nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('visible', window.scrollY > window.innerHeight * 0.6);
-});
+window.addEventListener('scroll', () => nav.classList.toggle('visible', window.scrollY > window.innerHeight * 0.5));
 
-// ── FADE-IN ON SCROLL ───────────────────────────────────────────────────────
-const io = new IntersectionObserver((entries) => {
+// Fade-in on scroll
+const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-}, { threshold: 0.12 });
+}, { threshold: 0.1 });
 document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
 
-// ── RSVP FORM ───────────────────────────────────────────────────────────────
+// RSVP
 document.getElementById('rsvp-form').addEventListener('submit', async function(e) {
   e.preventDefault();
   const btn = document.getElementById('submit-btn');
   const msg = document.getElementById('rsvp-msg');
   const data = Object.fromEntries(new FormData(this));
-
-  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
-    msg.className = 'error';
-    msg.textContent = '⚠ Stel eerst het Apps Script URL in (zie de README in de HTML-broncode).';
-    return;
-  }
-
-  btn.disabled = true;
-  btn.textContent = 'Versturen…';
-  msg.className = '';
-  msg.textContent = '';
-
+  btn.disabled = true; btn.textContent = 'Versturen…';
+  msg.className = ''; msg.textContent = '';
   try {
     const params = new URLSearchParams({ ...data, timestamp: new Date().toISOString() });
     await fetch(`${APPS_SCRIPT_URL}?${params}`, { method: 'GET', mode: 'no-cors' });
     msg.textContent = '🌸 Dankjewel! We kijken er enorm naar uit jou te zien!';
     this.reset();
-  } catch (err) {
+  } catch {
     msg.className = 'error';
     msg.textContent = 'Er ging iets mis. Probeer het opnieuw of stuur een WhatsApp naar Saskia.';
   } finally {
-    btn.disabled = false;
-    btn.textContent = 'Versturen ✦';
+    btn.disabled = false; btn.textContent = 'Versturen ✦';
   }
 });
 </script>
-
-<!--
-═══════════════════════════════════════════════════════════
-  README — SETUP INSTRUCTIONS
-═══════════════════════════════════════════════════════════
-
-  ── RSVP → GOOGLE SHEETS ──────────────────────────────────
-
-  1. Open Google Sheets → create a new sheet.
-     Name the columns in row 1:
-     Timestamp | Naam | Gasten | Aanwezig | Aankomst | Hotel | Vervoer | Dieet | Bericht | E-mail
-
-  2. Go to Extensions > Apps Script. Replace all code with:
-
-     function doPost(e) {
-       const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-       const data  = JSON.parse(e.postData.contents);
-       sheet.appendRow([
-         data.timestamp, data.name, data.guests, data.attending,
-         data.arrival, data.hotel, data.transport, data.diet,
-         data.message, data.email
-       ]);
-       return ContentService
-         .createTextOutput(JSON.stringify({ status: 'ok' }))
-         .setMimeType(ContentService.MimeType.JSON);
-     }
-
-  3. Click Deploy > New deployment > Web app.
-     - Execute as: Me
-     - Who has access: Anyone
-     → Copy the Web App URL.
-
-  4. Paste that URL into this file's top, replacing YOUR_APPS_SCRIPT_URL_HERE.
-
-  ── PHOTOS ────────────────────────────────────────────────
-
-  Replace the placeholder <div class="gallery-item"> blocks with:
-    <div class="gallery-item"><img src="photos/01.jpg" alt="Çisem & Floris" /></div>
-
-  Create a /photos/ folder next to index.html and drop your images there.
-
-  ── HOSTING ON GITHUB PAGES ───────────────────────────────
-
-  1. Create a free account at github.com.
-  2. New repository → name it  cisem-floris  (or anything).
-  3. Upload index.html (and photos/ folder if you have photos).
-  4. Go to Settings > Pages > Source: Deploy from branch > main / root.
-  5. Your site will be live at:
-       https://[your-username].github.io/cisem-floris/
-
-  For a custom domain (e.g. cisemfloris.nl):
-  - Buy the domain (transip.nl, mijndomein.nl, etc.).
-  - In GitHub Pages settings, enter your custom domain.
-  - At your domain registrar, add a CNAME record pointing to
-    [your-username].github.io.
-
-═══════════════════════════════════════════════════════════
--->
 </body>
 </html>
