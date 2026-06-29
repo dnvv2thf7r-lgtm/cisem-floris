@@ -83,15 +83,16 @@
       margin: 0 auto;
       border-radius: 2px;
       overflow: hidden;
-      box-shadow: 0 4px 32px rgba(42,36,32,.12);
+      /* Fade top and bottom into cream background — matches PDF blend */
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 88%, transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 88%, transparent 100%);
     }
     .hero-photo-wrap img {
       width: 100%;
       display: block;
       object-fit: cover;
       object-position: center top;
-      /* Show from top — the joyful faces and ring moment */
-      max-height: 560px;
+      max-height: 580px;
     }
 
     /* Names block — matches PDF large script with & accent */
@@ -202,8 +203,8 @@
       position: absolute;
       inset: 0;
       background-image: url('artwork.JPG');
-      background-size: cover;
-      background-position: center 20%;
+      background-size: 160%;
+      background-position: 30% center;
       z-index: 0;
     }
     /* Cream overlay — matches the washed-out feel of the PDF */
@@ -459,20 +460,6 @@
   <span class="scroll-hint">Scroll</span>
 </section>
 
-<!-- ─── COUNTDOWN ─── -->
-<section id="countdown">
-  <div class="section-inner">
-    <p class="section-label fade-in">Nog even geduld</p>
-    <h2 class="fade-in">Bijna zover!</h2>
-    <div class="countdown-grid fade-in">
-      <div class="countdown-box"><span class="countdown-num" id="cd-days">—</span><span class="countdown-label">Dagen</span></div>
-      <div class="countdown-box"><span class="countdown-num" id="cd-hours">—</span><span class="countdown-label">Uren</span></div>
-      <div class="countdown-box"><span class="countdown-num" id="cd-mins">—</span><span class="countdown-label">Minuten</span></div>
-      <div class="countdown-box"><span class="countdown-num" id="cd-secs">—</span><span class="countdown-label">Seconden</span></div>
-    </div>
-  </div>
-</section>
-
 <!-- ─── INVITATION + ARTWORK BACKGROUND ─── -->
 <section id="invitation">
   <div class="section-inner">
@@ -530,6 +517,20 @@
       We kijken er enorm naar uit en hopen jullie daar te mogen verwelkomen!
     </p>
 
+  </div>
+</section>
+
+<!-- ─── COUNTDOWN ─── -->
+<section id="countdown">
+  <div class="section-inner">
+    <p class="section-label fade-in">Nog even geduld</p>
+    <h2 class="fade-in">Bijna zover!</h2>
+    <div class="countdown-grid fade-in">
+      <div class="countdown-box"><span class="countdown-num" id="cd-days">—</span><span class="countdown-label">Dagen</span></div>
+      <div class="countdown-box"><span class="countdown-num" id="cd-hours">—</span><span class="countdown-label">Uren</span></div>
+      <div class="countdown-box"><span class="countdown-num" id="cd-mins">—</span><span class="countdown-label">Minuten</span></div>
+      <div class="countdown-box"><span class="countdown-num" id="cd-secs">—</span><span class="countdown-label">Seconden</span></div>
+    </div>
   </div>
 </section>
 
