@@ -728,6 +728,7 @@ const translations = {
     form_email:       'E-mailadres (optioneel)',
     form_email_ph:    'Voor een bevestiging',
     form_submit:      'Versturen ✦',
+    rsvp_processing:  'Versturen… Even geduld, verlaat deze pagina niet.',
     rsvp_success:     '🌸 Dankjewel! We kijken er enorm naar uit jou te zien!',
     rsvp_error:       'Er ging iets mis. Probeer het opnieuw of stuur een WhatsApp naar Saskia.',
     footer_contact:   'Vragen? Neem contact op met Saskia Onstwedder-List',
@@ -792,6 +793,7 @@ const translations = {
     form_email:       'Email address (optional)',
     form_email_ph:    'For a confirmation',
     form_submit:      'Submit ✦',
+    rsvp_processing:  'Submitting… Please do not leave this page.',
     rsvp_success:     '🌸 Thank you! We are so looking forward to seeing you!',
     rsvp_error:       'Something went wrong. Please try again or send a WhatsApp to Saskia.',
     footer_contact:   'Questions? Please contact Saskia Onstwedder-List',
@@ -856,6 +858,7 @@ const translations = {
     form_email:       'E-posta adresi (isteğe bağlı)',
     form_email_ph:    'Onay için',
     form_submit:      'Gönder ✦',
+    rsvp_processing:  'Gönderiliyor… Lütfen bu sayfadan ayrılmayın.',
     rsvp_success:     '🌸 Teşekkürler! Sizi görmek için sabırsızlanıyoruz!',
     rsvp_error:       "Bir şeyler ters gitti. Lütfen tekrar deneyin veya Saskia'ya WhatsApp gönderin.",
     footer_contact:   'Sorularınız için Saskia Onstwedder-List ile iletişime geçin',
@@ -990,7 +993,7 @@ document.getElementById('rsvp-form').addEventListener('submit', async function(e
   const msg = document.getElementById('rsvp-msg');
   const data = Object.fromEntries(new FormData(this));
   btn.disabled = true; btn.textContent = '…';
-  msg.className = ''; msg.textContent = '';
+  msg.className = ''; msg.textContent = translations[currentLang].rsvp_processing;
   try {
     const params = new URLSearchParams({ ...data, timestamp: new Date().toISOString(), lang: currentLang });
     await fetch(`${APPS_SCRIPT_URL}?${params}`, { method: 'GET', mode: 'no-cors' });
