@@ -53,9 +53,9 @@
     .hero-names-block { margin-top: 0; line-height: 1; }
     .hero-name { font-family: 'Great Vibes', cursive; font-size: clamp(3.2rem,11vw,5.5rem); color: #fff; display: block; line-height: 1.1; text-shadow: 0 2px 16px rgba(0,0,0,0.2); }
     .hero-amp  { font-family: 'Great Vibes', cursive; font-size: clamp(4rem,14vw,7rem); color: rgba(255,255,255,0.9); display: block; line-height: 1; text-shadow: 0 2px 16px rgba(0,0,0,0.2); }
-    .hero-date { margin-top: 1.2rem; font-size: clamp(1rem,3.5vw,1.3rem); letter-spacing: .5rem; color: rgba(255,255,255,0.92); font-weight: 400; }
+    .hero-date { margin-top: 1.2rem; font-size: clamp(1rem,3.5vw,1.3rem); letter-spacing: .5rem; color: rgba(255,255,255,0.92); font-weight: 400; text-shadow: 0 1px 8px rgba(0,0,0,0.55), 0 2px 20px rgba(0,0,0,0.35); }
     .hero-rule { width: 100px; height: 1px; background: rgba(255,255,255,0.45); margin: 1.4rem auto; }
-    .hero-venue { font-size: clamp(1rem,3vw,1.3rem); font-style: italic; color: rgba(255,255,255,0.95); letter-spacing: .08rem; }
+    .hero-venue { font-size: clamp(1rem,3vw,1.3rem); font-style: italic; color: rgba(255,255,255,0.95); letter-spacing: .08rem; text-shadow: 0 1px 8px rgba(0,0,0,0.55), 0 2px 20px rgba(0,0,0,0.35); }
     /* music-prompt overrides #hero > * { position: relative } */
     #hero .music-prompt { position: absolute !important; bottom: 2.2rem; left: 50%; transform: translateX(-50%); font-size: clamp(1rem, 3vw, 1.25rem); letter-spacing: .12rem; color: rgba(255,255,255,0.95); cursor: pointer; background: rgba(0,0,0,0.22); border: 1px solid rgba(255,255,255,0.45); border-radius: 2rem; padding: .65rem 1.8rem; backdrop-filter: blur(6px); animation: mpulse 2.2s ease-in-out infinite; white-space: nowrap; z-index: 3; user-select: none; }
     @keyframes mpulse { 0%,100% { opacity: 1; transform: translateX(-50%) scale(1); } 50% { opacity: 0.75; transform: translateX(-50%) scale(0.97); } }
@@ -109,6 +109,7 @@
 
     /* ── PLANNING (below painting) ── */
     #planning { background: var(--cream); }
+    #planning .section-label { font-size: .9rem; }
     .schedule { margin: 2rem auto 0; max-width: 320px; text-align: center; }
     .schedule-item { padding: 1.1rem 0; border-bottom: 1px solid rgba(184,146,74,.25); }
     .schedule-item:last-child { border-bottom: none; }
@@ -294,7 +295,7 @@
         <span class="schedule-name" data-i18n="ceremony">Ceremonie</span>
       </div>
       <div class="schedule-item">
-        <span class="schedule-time">&nbsp;</span>
+        <span class="schedule-time">18:30</span>
         <span class="schedule-name" data-i18n="dinner">Diner</span>
       </div>
       <div class="schedule-item">
@@ -559,7 +560,7 @@ const translations = {
     inv_p2: "Sizi Türkiye'nin güzel Çeşme, İzmir'inde düzenlenecek düğün törenimize, akşam yemeğimize ve eğlencemize davet etmekten onur duyuyoruz. İsterseniz 15–17 Ağustos tarihleri arasında yakın bir otelde konaklama ve İzmir Havalimanı'ndan düğün mekanına ulaşım konusunda yardımcı olmaktan memnuniyet duyarız. Tabii, bu düzenlemeleri kendiniz yapmayı tercih ederseniz de son derece anlayışla karşılarız. Güzel günler yaşayacağımıza inanıyor, bu unutulmaz anları sizinle, sevgili dostlarımız ve ailemizle paylaşmayı sabırsızlıkla bekliyoruz.",
     planning_label: 'Program',
     ceremony: 'Tören', dinner: 'Akşam Yemeği', party: 'Parti',
-    address_label: 'Adres', dresscode_label: 'Kıyafet Kodu', dresscode_value: 'Gala / Şık',
+    address_label: 'Adres', dresscode_label: 'Kıyafet', dresscode_value: 'Gala / Şık',
     inv_outro1: 'Sizi orada ağırlamaktan büyük mutluluk duyacağız!',
     inv_outro2: "İzmir Havalimanı'na varış saatinizi ve otel ile ulaşım hizmetinden yararlanmak isteyip istemediğinizi bize bildirmenizi rica ederiz.",
     sign_off: 'Sevgiyle,',
