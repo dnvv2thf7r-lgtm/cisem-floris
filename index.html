@@ -53,17 +53,18 @@
       overflow: hidden;
       background: #8f9477;
     }
-    /* Blurred couple photo as background */
     #hero::before {
       content: '';
       position: absolute;
-      inset: -20px; /* overshoot to hide blur edges */
+      inset: 0;
       background: url('couple.JPG') no-repeat 95% 15% / cover;
-      filter: blur(1px);
-      transform: scale(1.06);
       z-index: 0;
     }
-    /* Semi-transparent overlay for text readability */
+    @media (max-width: 600px) {
+      #hero::before {
+        background-position: 85% 15%;
+      }
+    }
     #hero::after {
       content: '';
       position: absolute;
@@ -71,10 +72,8 @@
       background: rgba(143, 148, 119, 0.05);
       z-index: 1;
     }
-    /* All hero text above the blurred photo */
     #hero > * { position: relative; z-index: 2; }
 
-    /* "Wij gaan trouwen!" with ruling lines */
     .hero-ruled {
       display: flex;
       align-items: center;
@@ -100,11 +99,7 @@
       text-shadow: 0 1px 12px rgba(0,0,0,0.2);
     }
 
-    /* Names block */
-    .hero-names-block {
-      margin-top: 0;
-      line-height: 1;
-    }
+    .hero-names-block { margin-top: 0; line-height: 1; }
     .hero-name {
       font-family: 'Great Vibes', cursive;
       font-size: clamp(3.2rem, 11vw, 5.5rem);
@@ -129,8 +124,7 @@
       font-weight: 400;
     }
     .hero-rule {
-      width: 100px;
-      height: 1px;
+      width: 100px; height: 1px;
       background: rgba(255,255,255,0.45);
       margin: 1.4rem auto;
     }
@@ -203,19 +197,11 @@
       position: relative;
       padding: 5rem 1.5rem;
     }
-    /*
-      Artwork sits here as ::before.
-      mask-size matches the artwork's exact proportions so the fade percentages
-      (0% top, 100% bottom) map directly onto the image's own height — not the
-      section height. This guarantees a smooth fade at BOTH ends of the painting
-      regardless of how tall the section is due to text content.
-    */
     #invitation::before {
       content: '';
       position: absolute;
       inset: 0;
       background: url('artwork.JPG') no-repeat top center / 100% auto;
-      /* Mask fades tied to the image dimensions */
       -webkit-mask-image: linear-gradient(to bottom,
         transparent 0%,
         rgba(0,0,0,0.85) 7%,
@@ -228,7 +214,6 @@
         rgba(0,0,0,0.85) 83%,
         transparent 100%
       );
-      /* Lock mask to artwork's aspect ratio (2600/1812) */
       -webkit-mask-size: 100% calc(100vw * 1.435);
       mask-size: 100% calc(100vw * 1.435);
       -webkit-mask-position: top center;
@@ -239,69 +224,32 @@
       pointer-events: none;
       z-index: 0;
     }
-    #invitation .section-inner {
-      position: relative;
-      z-index: 1;
-    }
+    #invitation .section-inner { position: relative; z-index: 1; }
 
-    /* Schedule — matches PDF: simple centered lines, no dots */
-    .schedule {
-      margin: 2rem auto 0;
-      max-width: 320px;
-      text-align: center;
-    }
+    .schedule { margin: 2rem auto 0; max-width: 320px; text-align: center; }
     .schedule-item {
       padding: 1.1rem 0;
       border-bottom: 1px solid rgba(184,146,74,.25);
     }
     .schedule-item:last-child { border-bottom: none; }
     .schedule-time {
-      font-size: .78rem;
-      letter-spacing: .3rem;
-      text-transform: uppercase;
-      color: var(--gold);
-      display: block;
-      margin-bottom: .2rem;
+      font-size: .78rem; letter-spacing: .3rem; text-transform: uppercase;
+      color: var(--gold); display: block; margin-bottom: .2rem;
     }
-    .schedule-name {
-      font-size: clamp(1.1rem, 3.5vw, 1.4rem);
-      font-weight: 500;
-      color: var(--ink);
-    }
+    .schedule-name { font-size: clamp(1.1rem, 3.5vw, 1.4rem); font-weight: 500; color: var(--ink); }
 
-    /* ADRES block inside invitation section — matches PDF */
-    .address-block {
-      margin-top: 2.5rem;
-      text-align: center;
-    }
+    .address-block { margin-top: 2.5rem; text-align: center; }
     .address-block .addr-label {
-      font-size: .7rem;
-      letter-spacing: .35rem;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: .5rem;
+      font-size: .7rem; letter-spacing: .35rem; text-transform: uppercase;
+      color: var(--gold); margin-bottom: .5rem;
     }
     .address-block .addr-venue {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: clamp(1.1rem, 3vw, 1.3rem);
-      color: var(--ink);
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: clamp(1.1rem, 3vw, 1.3rem); color: var(--ink);
     }
-    .address-block .addr-street {
-      font-size: .95rem;
-      color: var(--muted);
-      margin-top: .3rem;
-      line-height: 1.6;
-    }
-
-    /* ── TIMELINE (kept for programma section) ── */
-    #timeline { background: var(--warm); }
+    .address-block .addr-street { font-size: .95rem; color: var(--muted); margin-top: .3rem; line-height: 1.6; }
 
     /* ── VENUE ── */
-    #venue .venue-name {
-      font-size: clamp(1.2rem, 4vw, 1.7rem);
-      font-weight: 500; margin: .5rem 0;
-    }
     #venue .venue-addr { font-size: 1rem; color: var(--muted); font-style: italic; }
     .map-wrap {
       margin: 2rem auto 0; border-radius: 8px; overflow: hidden;
@@ -334,33 +282,12 @@
     .logistic-card h3 { font-size: 1.15rem; margin-bottom: .4rem; }
     .logistic-card p { font-size: .93rem; color: var(--muted); line-height: 1.6; }
 
-    /* ── DRESSCODE ── */
-    #dresscode { background: var(--sage); color: #fff; }
-    #dresscode .section-label { color: #c9d9c4; }
-    #dresscode h2 { color: #fff; }
-    #dresscode .body-text { color: rgba(255,255,255,.8); }
-    .dress-badge {
-      display: inline-block;
-      border: 1px solid rgba(255,255,255,.5);
-      border-radius: 3px;
-      padding: .55rem 2rem;
-      font-size: 1rem;
-      letter-spacing: .35rem;
-      text-transform: uppercase;
-      color: #fff;
-      margin-top: .8rem;
-    }
-
     /* ── RSVP ── */
     #rsvp { background: var(--warm); }
     .rsvp-form {
-      background: var(--cream);
-      border-radius: 10px;
-      padding: 2.2rem 1.8rem;
-      max-width: 540px;
-      margin: 2rem auto 0;
-      border: 1px solid rgba(184,146,74,.2);
-      text-align: left;
+      background: var(--cream); border-radius: 10px;
+      padding: 2.2rem 1.8rem; max-width: 540px;
+      margin: 2rem auto 0; border: 1px solid rgba(184,146,74,.2); text-align: left;
     }
     .form-row { margin-bottom: 1.3rem; }
     .form-row label {
@@ -402,46 +329,77 @@
       text-align: center;
       padding: 3rem 1.5rem;
     }
-    footer .footer-names {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.4rem; color: #fff; margin-bottom: .4rem;
-    }
-    footer .footer-date {
-      font-size: .8rem; letter-spacing: .3rem;
-      text-transform: uppercase; opacity: .6;
-    }
+    footer .footer-names { font-family: 'Great Vibes', cursive; font-size: 2.4rem; color: #fff; margin-bottom: .4rem; }
+    footer .footer-date { font-size: .8rem; letter-spacing: .3rem; text-transform: uppercase; opacity: .6; }
     footer .footer-contact { margin-top: 1.4rem; font-size: .88rem; line-height: 1.9; }
     footer a { color: rgba(255,255,255,.8); }
 
     /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      display: flex; justify-content: center; gap: 1.5rem;
-      padding: .75rem 1rem;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .75rem 1.2rem;
       background: rgba(247,242,233,.92);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid rgba(184,146,74,.18);
-      font-size: .7rem; letter-spacing: .22rem; text-transform: uppercase;
       transform: translateY(-100%); transition: transform .3s ease;
     }
     nav.visible { transform: translateY(0); }
-    nav a { color: var(--muted); text-decoration: none; transition: color .2s; }
-    nav a:hover { color: var(--sage); }
+    .nav-links {
+      display: flex; gap: 1.2rem; align-items: center;
+      font-size: .7rem; letter-spacing: .22rem; text-transform: uppercase;
+    }
+    .nav-links a { color: var(--muted); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--sage); }
+
+    /* Language selector */
+    .lang-selector {
+      display: flex; gap: .3rem; align-items: center; flex-shrink: 0;
+    }
+    .lang-btn {
+      background: none;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      padding: .18rem .45rem;
+      cursor: pointer;
+      font-size: .65rem;
+      letter-spacing: .08rem;
+      color: var(--muted);
+      display: flex; align-items: center; gap: .25rem;
+      transition: all .2s;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .lang-btn:hover { color: var(--sage); border-color: rgba(184,146,74,.3); }
+    .lang-btn.active { color: var(--sage); border-color: rgba(184,146,74,.5); background: rgba(184,146,74,.08); font-weight: 600; }
+    .lang-flag { font-size: .95rem; line-height: 1; }
+
+    /* Music button */
+    .music-btn {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 1001;
+      background: rgba(247,242,233,0.92);
+      border: 1px solid rgba(184,146,74,.3);
+      border-radius: 50%; width: 46px; height: 46px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1.1rem;
+      backdrop-filter: blur(8px);
+      transition: all .2s;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    }
+    .music-btn:hover { background: var(--cream); transform: scale(1.05); }
+    .music-btn.playing { border-color: var(--gold); }
 
     /* ── FADE-IN ── */
-    .fade-in {
-      opacity: 0; transform: translateY(20px);
-      transition: opacity .7s ease, transform .7s ease;
-    }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 480px) {
+    @media (max-width: 600px) {
       .form-two { grid-template-columns: 1fr; }
       .countdown-grid { gap: .65rem; }
       .countdown-box { padding: 1rem 1.1rem; min-width: 68px; }
-      nav { gap: .7rem; font-size: .62rem; }
+      .nav-links { gap: .55rem; font-size: .58rem; }
       .hero-ruled-text { font-size: 1.8rem; }
+      .lang-btn { font-size: .58rem; padding: .15rem .35rem; }
     }
   </style>
 </head>
@@ -449,45 +407,53 @@
 
 <div id="petals"></div>
 
+<!-- Music -->
+<audio id="bg-music" loop>
+  <source src="music.mp3" type="audio/mpeg" />
+</audio>
+<button class="music-btn" id="music-btn" title="Play / Pause music" aria-label="Play music">🎵</button>
+
 <nav id="main-nav">
-  <a href="#countdown">Aftellen</a>
-  <a href="#invitation">Uitnodiging</a>
-  <a href="#venue">Locatie</a>
-  <a href="#logistics">Hotel & Vervoer</a>
-  <a href="#rsvp">RSVP</a>
+  <div class="nav-links">
+    <a href="#countdown" data-i18n="nav_countdown">Aftellen</a>
+    <a href="#invitation" data-i18n="nav_invitation">Uitnodiging</a>
+    <a href="#venue" data-i18n="nav_venue">Locatie</a>
+    <a href="#logistics" data-i18n="nav_logistics">Hotel & Vervoer</a>
+    <a href="#rsvp">RSVP</a>
+  </div>
+  <div class="lang-selector">
+    <button class="lang-btn active" data-lang="nl"><span class="lang-flag">🇳🇱</span> NL</button>
+    <button class="lang-btn" data-lang="en"><span class="lang-flag">🇬🇧</span> EN</button>
+    <button class="lang-btn" data-lang="tr"><span class="lang-flag">🇹🇷</span> TR</button>
+  </div>
 </nav>
 
 <!-- ─── HERO ─── -->
 <section id="hero">
-
-  <!-- "Wij gaan trouwen!" with ruling lines — matches PDF -->
   <div class="hero-ruled fade-in">
-    <span class="hero-ruled-text">Wij gaan trouwen!</span>
+    <span class="hero-ruled-text" data-i18n="hero_tagline">Wij gaan trouwen!</span>
   </div>
-
-  <!-- Names — Çisem & Floris in large script overlay on photo -->
   <div class="hero-names-block fade-in">
     <span class="hero-name">Çisem</span>
     <span class="hero-amp">&amp;</span>
     <span class="hero-name">Floris</span>
   </div>
-
   <div class="hero-date fade-in">16 · 08 · 2026</div>
   <div class="hero-rule"></div>
-  <p class="hero-venue fade-in">Villa Marquem Çeşme &nbsp;·&nbsp; İzmir, Turkije</p>
-  <span class="scroll-hint">Scroll</span>
+  <p class="hero-venue fade-in">Villa Marquem Çeşme &nbsp;·&nbsp; İzmir, Türkiye</p>
+  <span class="scroll-hint" data-i18n="scroll_hint">Scroll</span>
 </section>
 
 <!-- ─── COUNTDOWN ─── -->
 <section id="countdown">
   <div class="section-inner">
-    <p class="section-label fade-in">Nog even geduld</p>
-    <h2 class="fade-in">Bijna zover!</h2>
+    <p class="section-label fade-in" data-i18n="countdown_label">Nog even geduld</p>
+    <h2 class="fade-in" data-i18n="countdown_title">Bijna zover!</h2>
     <div class="countdown-grid fade-in">
-      <div class="countdown-box"><span class="countdown-num" id="cd-days">—</span><span class="countdown-label">Dagen</span></div>
-      <div class="countdown-box"><span class="countdown-num" id="cd-hours">—</span><span class="countdown-label">Uren</span></div>
-      <div class="countdown-box"><span class="countdown-num" id="cd-mins">—</span><span class="countdown-label">Minuten</span></div>
-      <div class="countdown-box"><span class="countdown-num" id="cd-secs">—</span><span class="countdown-label">Seconden</span></div>
+      <div class="countdown-box"><span class="countdown-num" id="cd-days">—</span><span class="countdown-label" data-i18n="cd_days">Dagen</span></div>
+      <div class="countdown-box"><span class="countdown-num" id="cd-hours">—</span><span class="countdown-label" data-i18n="cd_hours">Uren</span></div>
+      <div class="countdown-box"><span class="countdown-num" id="cd-mins">—</span><span class="countdown-label" data-i18n="cd_mins">Minuten</span></div>
+      <div class="countdown-box"><span class="countdown-num" id="cd-secs">—</span><span class="countdown-label" data-i18n="cd_secs">Seconden</span></div>
     </div>
   </div>
 </section>
@@ -496,79 +462,75 @@
 <section id="invitation">
   <div class="section-inner">
 
-    <p class="body-text fade-in" style="text-align:center; color:var(--ink); text-shadow: 0 0 12px rgba(247,242,233,0.9), 0 0 24px rgba(247,242,233,0.7);">
+    <p class="body-text fade-in" style="text-align:center; color:var(--ink); text-shadow: 0 0 12px rgba(247,242,233,0.9), 0 0 24px rgba(247,242,233,0.7);" data-i18n="inv_p1">
       Met grote vreugde kondigen wij aan dat we gaan trouwen! Onze liefde vieren we graag met jou!
     </p>
 
     <br />
 
-    <p class="body-text fade-in" style="text-align:center; color:var(--ink); text-shadow: 0 0 12px rgba(247,242,233,0.9), 0 0 24px rgba(247,242,233,0.7);">
+    <p class="body-text fade-in" style="text-align:center; color:var(--ink); text-shadow: 0 0 12px rgba(247,242,233,0.9), 0 0 24px rgba(247,242,233,0.7);" data-i18n="inv_p2">
       We nodigen jullie uit voor de ceremonie, het diner en avondfeest in het prachtige Çeşme, Izmir, Turkije. Met plezier verzorgen wij verblijf voor jullie van 15 tot 17 augustus in een nabijgelegen hotel, evenals het transport vanaf de luchthaven en naar de trouwlocatie. Als jullie dit liever zelf organiseren kan dat natuurlijk ook. We gaan er iets moois van maken en hopen dit samen met jullie, onze dierbare vrienden en familie, te mogen beleven.
     </p>
 
     <br /><br />
 
-    <!-- Schedule — PDF style: centered, time + name -->
-    <p class="section-label fade-in" style="margin-top:3rem;">Planning</p>
+    <p class="section-label fade-in" style="margin-top:3rem;" data-i18n="planning_label">Planning</p>
     <div class="schedule fade-in">
       <div class="schedule-item">
         <span class="schedule-time">17:00</span>
-        <span class="schedule-name">Ceremonie</span>
+        <span class="schedule-name" data-i18n="ceremony">Ceremonie</span>
       </div>
       <div class="schedule-item">
         <span class="schedule-time">&nbsp;</span>
-        <span class="schedule-name">Diner</span>
+        <span class="schedule-name" data-i18n="dinner">Diner</span>
       </div>
       <div class="schedule-item">
         <span class="schedule-time">20:00</span>
-        <span class="schedule-name">Feest</span>
+        <span class="schedule-name" data-i18n="party">Feest</span>
       </div>
     </div>
 
-    <!-- ADRES — exact PDF wording -->
     <div class="address-block fade-in">
-      <div class="addr-label">Adres</div>
+      <div class="addr-label" data-i18n="address_label">Adres</div>
       <div class="addr-venue">Villa Marquem Çeşme</div>
       <div class="addr-street">
         Altınkum Mah. 255<br />
-        Sk. No: 48 Çeşme / İzmir, Turkije
+        Sk. No: 48 Çeşme / İzmir, Türkiye
       </div>
     </div>
 
-    <!-- DRESSCODE — exact PDF wording, shown inline here as in PDF -->
     <div class="address-block fade-in" style="margin-top:1.8rem;">
-      <div class="addr-label">Dresscode</div>
-      <div class="addr-venue">Gala / Feestelijk</div>
+      <div class="addr-label" data-i18n="dresscode_label">Dresscode</div>
+      <div class="addr-venue" data-i18n="dresscode_value">Gala / Feestelijk</div>
     </div>
 
     <br /><br />
 
-    <p class="body-text fade-in" style="text-align:center; color:var(--ink);">
+    <p class="body-text fade-in" style="text-align:center; color:var(--ink); text-shadow: 0 0 12px rgba(247,242,233,0.9);" data-i18n="inv_outro1">
       We kijken er enorm naar uit en hopen jullie daar te mogen verwelkomen!
     </p>
 
     <br />
 
-    <p class="body-text fade-in" style="text-align:center; color:var(--ink);">
+    <p class="body-text fade-in" style="text-align:center; color:var(--ink); text-shadow: 0 0 12px rgba(247,242,233,0.9);" data-i18n="inv_outro2">
       Laat je ons graag weten wanneer je arriveert op de luchthaven van Izmir en of je gebruik wilt maken van het hotel en vervoer?
     </p>
 
     <br /><br />
 
-    <p class="fade-in" style="text-align:center; font-family:'Great Vibes',cursive; font-size:clamp(1.6rem,5vw,2.2rem); color:var(--ink); line-height:1.4;">
-      Liefs,<br />Çisem &amp; Floris
+    <p class="fade-in" style="text-align:center; font-family:'Great Vibes',cursive; font-size:clamp(1.6rem,5vw,2.2rem); color:var(--ink); line-height:1.4; text-shadow: 0 0 12px rgba(247,242,233,0.9);">
+      <span data-i18n="sign_off">Liefs,</span><br />Çisem &amp; Floris
     </p>
 
   </div>
-
 </section>
 
 <!-- ─── VENUE + MAP ─── -->
 <section id="venue">
   <div class="section-inner">
-    <p class="section-label fade-in">Locatie</p>
+    <p class="section-label fade-in" data-i18n="venue_label">Locatie</p>
     <h2 class="fade-in">Villa Marquem Çeşme</h2>
-    <p class="venue-addr fade-in">Altınkum Mah. 255 Sk. No: 48 · Çeşme / İzmir, Turkije</p>
+    <p class="venue-addr fade-in">Altınkum Mah. 255 Sk. No: 48 · Çeşme / İzmir, Türkiye</p>
     <div class="map-wrap fade-in">
       <iframe
         title="Villa Marquem Çeşme"
@@ -576,37 +538,37 @@
         allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
       </iframe>
     </div>
-    <a class="map-btn fade-in" href="https://maps.google.com/?q=Villa+Marquem+Cesme+Altinkum+Mah+255+Sk+No+48+Cesme+Izmir" target="_blank" rel="noopener">Open in Google Maps</a>
+    <a class="map-btn fade-in" id="maps-btn" href="https://maps.google.com/?q=Villa+Marquem+Cesme+Altinkum+Mah+255+Sk+No+48+Cesme+Izmir" target="_blank" rel="noopener" data-i18n="maps_btn">Open in Google Maps</a>
   </div>
 </section>
 
 <!-- ─── HOTEL & TRANSPORT ─── -->
 <section id="logistics">
   <div class="section-inner">
-    <p class="section-label fade-in">Praktisch</p>
-    <h2 class="fade-in">Hotel & Vervoer</h2>
-    <p class="body-text fade-in">
+    <p class="section-label fade-in" data-i18n="logistics_label">Praktisch</p>
+    <h2 class="fade-in" data-i18n="logistics_title">Hotel & Vervoer</h2>
+    <p class="body-text fade-in" data-i18n-html="logistics_intro">
       We zorgen graag voor jullie verblijf van <strong>15 tot 17 augustus</strong> in een nabijgelegen hotel,
       evenals vervoer van en naar de luchthaven van İzmir. Geef bij de RSVP aan wat jullie wensen.
     </p>
     <div class="logistic-cards">
       <div class="logistic-card fade-in">
         <div class="icon">🏨</div>
-        <h3>Hotel</h3>
-        <p>Verblijf van 15 t/m 17 augustus wordt door ons geregeld. Laat het ons weten als je hier gebruik van wilt maken.</p>
+        <h3 data-i18n="hotel_title">Hotel</h3>
+        <p data-i18n="hotel_text">Verblijf van 15 t/m 17 augustus wordt door ons geregeld. Laat het ons weten als je hier gebruik van wilt maken.</p>
       </div>
       <div class="logistic-card fade-in">
         <div class="icon">✈️</div>
-        <h3>Vervoer</h3>
-        <p>Transport vanaf İzmir luchthaven naar de locatie en terug is beschikbaar. Geef je aankomsttijd door bij RSVP.</p>
+        <h3 data-i18n="transport_title">Vervoer</h3>
+        <p data-i18n="transport_text">Transport vanaf İzmir luchthaven naar de locatie en terug is beschikbaar. Geef je aankomsttijd door bij RSVP.</p>
       </div>
       <div class="logistic-card fade-in">
         <div class="icon">📍</div>
-        <h3>Vliegveld</h3>
-        <p>Dichtstbijzijnde luchthaven: <strong>İzmir Adnan Menderes (ADB)</strong>. Vluchttickets regelen jullie zelf.</p>
+        <h3 data-i18n="airport_title">Vliegveld</h3>
+        <p data-i18n-html="airport_text">Dichtstbijzijnde luchthaven: <strong>İzmir Adnan Menderes (ADB)</strong>. Vluchttickets regelen jullie zelf.</p>
       </div>
     </div>
-    <p class="body-text fade-in" style="margin-top: 2rem;">
+    <p class="body-text fade-in" style="margin-top: 2rem;" data-i18n="logistics_outro">
       Als jullie het fijn vinden verzorgen wij graag verblijf van 15 t/m 17 augustus in een nabijgelegen hotel, evenals transport vanaf de luchthaven naar de trouwlocatie en terug. Laat het ons weten als je hier gebruik van wilt maken.
     </p>
   </div>
@@ -615,71 +577,71 @@
 <!-- ─── RSVP ─── -->
 <section id="rsvp">
   <div class="section-inner">
-    <p class="section-label fade-in">Aanmelden</p>
+    <p class="section-label fade-in" data-i18n="rsvp_label">Aanmelden</p>
     <h2 class="fade-in">RSVP</h2>
-    <p class="body-text fade-in">
+    <p class="body-text fade-in" data-i18n="rsvp_intro">
       Laat je ons graag weten wanneer je arriveert op Izmir luchthaven en of je gebruik wilt maken van hotel en vervoer?
     </p>
   </div>
   <form class="rsvp-form fade-in" id="rsvp-form">
     <div class="form-row">
-      <label>Naam / Namen *</label>
-      <input type="text" name="name" placeholder="Jouw naam (en eventuele partner)" required />
+      <label data-i18n="form_name">Naam / Namen *</label>
+      <input type="text" name="name" data-i18n-ph="form_name_ph" placeholder="Jouw naam (en eventuele partner)" required />
     </div>
     <div class="form-two">
       <div class="form-row">
-        <label>Aantal personen *</label>
+        <label data-i18n="form_guests">Aantal personen *</label>
         <select name="guests" required>
-          <option value="">Kies...</option>
-          <option value="1">1 persoon</option>
-          <option value="2">2 personen</option>
-          <option value="3">3 personen</option>
-          <option value="4">4 personen</option>
-          <option value="5+">5 of meer</option>
+          <option value="" data-i18n-opt="form_guests_ph">Kies...</option>
+          <option value="1" data-i18n-opt="guests_1">1 persoon</option>
+          <option value="2" data-i18n-opt="guests_2">2 personen</option>
+          <option value="3" data-i18n-opt="guests_3">3 personen</option>
+          <option value="4" data-i18n-opt="guests_4">4 personen</option>
+          <option value="5+" data-i18n-opt="guests_5">5 of meer</option>
         </select>
       </div>
       <div class="form-row">
-        <label>Aanwezig?</label>
+        <label data-i18n="form_attending">Aanwezig?</label>
         <select name="attending" required>
-          <option value="">Kies...</option>
-          <option value="ja">Ja, ik kom!</option>
-          <option value="nee">Helaas niet</option>
+          <option value="" data-i18n-opt="form_guests_ph">Kies...</option>
+          <option value="ja" data-i18n-opt="form_yes">Ja, ik kom!</option>
+          <option value="nee" data-i18n-opt="form_no">Helaas niet</option>
         </select>
       </div>
     </div>
     <div class="form-row">
-      <label>Aankomsttijd İzmir luchthaven (als je het al weet)</label>
+      <label data-i18n="form_arrival">Aankomsttijd İzmir luchthaven (als je het al weet)</label>
       <input type="datetime-local" name="arrival" />
     </div>
     <div class="form-two">
       <div class="form-row">
-        <label>Hotel nodig? (15–17 aug)</label>
+        <label data-i18n="form_hotel">Hotel nodig? (15–17 aug)</label>
         <select name="hotel">
-          <option value="nee">Nee, dank je</option>
-          <option value="ja">Ja, graag!</option>
+          <option value="nee" data-i18n-opt="form_no_thanks">Nee, dank je</option>
+          <option value="ja" data-i18n-opt="form_yes_please">Ja, graag!</option>
         </select>
       </div>
       <div class="form-row">
-        <label>Vervoer nodig?</label>
+        <label data-i18n="form_transport">Vervoer nodig?</label>
         <select name="transport">
-          <option value="nee">Nee, dank je</option>
-          <option value="ja">Ja, graag!</option>
+          <option value="nee" data-i18n-opt="form_no_thanks">Nee, dank je</option>
+          <option value="ja" data-i18n-opt="form_yes_please">Ja, graag!</option>
         </select>
       </div>
     </div>
     <div class="form-row">
-      <label>Dieetwensen / allergieën</label>
-      <input type="text" name="diet" placeholder="Bijv. vegetarisch, glutenvrij…" />
+      <label data-i18n="form_diet">Dieetwensen / allergieën</label>
+      <input type="text" name="diet" data-i18n-ph="form_diet_ph" placeholder="Bijv. vegetarisch, glutenvrij…" />
     </div>
     <div class="form-row">
-      <label>Bericht aan Çisem & Floris</label>
-      <textarea name="message" placeholder="Een lieve boodschap is altijd welkom!"></textarea>
+      <label data-i18n="form_message">Bericht aan Çisem & Floris</label>
+      <textarea name="message" data-i18n-ph="form_message_ph" placeholder="Een lieve boodschap is altijd welkom!"></textarea>
     </div>
     <div class="form-row">
-      <label>E-mailadres (optioneel)</label>
-      <input type="email" name="email" placeholder="Voor een bevestiging" />
+      <label data-i18n="form_email">E-mailadres (optioneel)</label>
+      <input type="email" name="email" data-i18n-ph="form_email_ph" placeholder="Voor een bevestiging" />
     </div>
-    <button type="submit" class="form-submit" id="submit-btn">Versturen ✦</button>
+    <button type="submit" class="form-submit" id="submit-btn" data-i18n="form_submit">Versturen ✦</button>
     <p id="rsvp-msg"></p>
   </form>
 </section>
@@ -689,7 +651,7 @@
   <div class="footer-names">Çisem & Floris</div>
   <div class="footer-date">16 · 08 · 2026 &nbsp;·&nbsp; Çeşme, İzmir</div>
   <div class="footer-contact">
-    Vragen? Neem contact op met Saskia Onstwedder-List<br />
+    <span data-i18n="footer_contact">Vragen? Neem contact op met Saskia Onstwedder-List</span><br />
     <a href="https://wa.me/31640590089">WhatsApp / bellen: +31 640 590 089</a><br />
     <a href="mailto:onstwedderlist@upcmail.nl">onstwedderlist@upcmail.nl</a>
   </div>
@@ -697,10 +659,269 @@
 </footer>
 
 <script>
+/* ── TRANSLATIONS ── */
+const translations = {
+  nl: {
+    nav_countdown:    'Aftellen',
+    nav_invitation:   'Uitnodiging',
+    nav_venue:        'Locatie',
+    nav_logistics:    'Hotel & Vervoer',
+    hero_tagline:     'Wij gaan trouwen!',
+    scroll_hint:      'Scroll',
+    countdown_label:  'Nog even geduld',
+    countdown_title:  'Bijna zover!',
+    cd_days:  'Dagen',
+    cd_hours: 'Uren',
+    cd_mins:  'Minuten',
+    cd_secs:  'Seconden',
+    inv_p1: 'Met grote vreugde kondigen wij aan dat we gaan trouwen! Onze liefde vieren we graag met jou!',
+    inv_p2: 'We nodigen jullie uit voor de ceremonie, het diner en avondfeest in het prachtige Çeşme, Izmir, Turkije. Met plezier verzorgen wij verblijf voor jullie van 15 tot 17 augustus in een nabijgelegen hotel, evenals het transport vanaf de luchthaven en naar de trouwlocatie. Als jullie dit liever zelf organiseren kan dat natuurlijk ook. We gaan er iets moois van maken en hopen dit samen met jullie, onze dierbare vrienden en familie, te mogen beleven.',
+    planning_label: 'Planning',
+    ceremony: 'Ceremonie',
+    dinner:   'Diner',
+    party:    'Feest',
+    address_label:    'Adres',
+    dresscode_label:  'Dresscode',
+    dresscode_value:  'Gala / Feestelijk',
+    inv_outro1: 'We kijken er enorm naar uit en hopen jullie daar te mogen verwelkomen!',
+    inv_outro2: 'Laat je ons graag weten wanneer je arriveert op de luchthaven van Izmir en of je gebruik wilt maken van het hotel en vervoer?',
+    sign_off:   'Liefs,',
+    venue_label: 'Locatie',
+    maps_btn:    'Open in Google Maps',
+    logistics_label: 'Praktisch',
+    logistics_title: 'Hotel & Vervoer',
+    logistics_intro: 'We zorgen graag voor jullie verblijf van <strong>15 tot 17 augustus</strong> in een nabijgelegen hotel, evenals vervoer van en naar de luchthaven van İzmir. Geef bij de RSVP aan wat jullie wensen.',
+    hotel_title:    'Hotel',
+    hotel_text:     'Verblijf van 15 t/m 17 augustus wordt door ons geregeld. Laat het ons weten als je hier gebruik van wilt maken.',
+    transport_title: 'Vervoer',
+    transport_text:  'Transport vanaf İzmir luchthaven naar de locatie en terug is beschikbaar. Geef je aankomsttijd door bij RSVP.',
+    airport_title:   'Vliegveld',
+    airport_text:    'Dichtstbijzijnde luchthaven: <strong>İzmir Adnan Menderes (ADB)</strong>. Vluchttickets regelen jullie zelf.',
+    logistics_outro: 'Als jullie het fijn vinden verzorgen wij graag verblijf van 15 t/m 17 augustus in een nabijgelegen hotel, evenals transport vanaf de luchthaven naar de trouwlocatie en terug. Laat het ons weten als je hier gebruik van wilt maken.',
+    rsvp_label:  'Aanmelden',
+    rsvp_intro:  'Laat je ons graag weten wanneer je arriveert op Izmir luchthaven en of je gebruik wilt maken van hotel en vervoer?',
+    form_name:        'Naam / Namen *',
+    form_name_ph:     'Jouw naam (en eventuele partner)',
+    form_guests:      'Aantal personen *',
+    form_guests_ph:   'Kies...',
+    guests_1: '1 persoon', guests_2: '2 personen', guests_3: '3 personen', guests_4: '4 personen', guests_5: '5 of meer',
+    form_attending:   'Aanwezig?',
+    form_yes:         'Ja, ik kom!',
+    form_no:          'Helaas niet',
+    form_arrival:     'Aankomsttijd İzmir luchthaven (als je het al weet)',
+    form_hotel:       'Hotel nodig? (15–17 aug)',
+    form_no_thanks:   'Nee, dank je',
+    form_yes_please:  'Ja, graag!',
+    form_transport:   'Vervoer nodig?',
+    form_diet:        'Dieetwensen / allergieën',
+    form_diet_ph:     'Bijv. vegetarisch, glutenvrij…',
+    form_message:     'Bericht aan Çisem & Floris',
+    form_message_ph:  'Een lieve boodschap is altijd welkom!',
+    form_email:       'E-mailadres (optioneel)',
+    form_email_ph:    'Voor een bevestiging',
+    form_submit:      'Versturen ✦',
+    rsvp_success:     '🌸 Dankjewel! We kijken er enorm naar uit jou te zien!',
+    rsvp_error:       'Er ging iets mis. Probeer het opnieuw of stuur een WhatsApp naar Saskia.',
+    footer_contact:   'Vragen? Neem contact op met Saskia Onstwedder-List',
+  },
+
+  en: {
+    nav_countdown:    'Countdown',
+    nav_invitation:   'Invitation',
+    nav_venue:        'Venue',
+    nav_logistics:    'Hotel & Transport',
+    hero_tagline:     "We're getting married!",
+    scroll_hint:      'Scroll',
+    countdown_label:  'Just a little longer',
+    countdown_title:  'Almost time!',
+    cd_days:  'Days',
+    cd_hours: 'Hours',
+    cd_mins:  'Minutes',
+    cd_secs:  'Seconds',
+    inv_p1: 'With great joy, we are delighted to announce that we are getting married! We would love to celebrate our love together with you.',
+    inv_p2: 'We warmly invite you to join us for our wedding ceremony, dinner and evening celebration in the beautiful town of Çeşme, İzmir, Türkiye. We are pleased to offer accommodation for you from 15 to 17 August at a nearby hotel, as well as transportation from İzmir Airport to the wedding venue. Of course, if you prefer to arrange this yourself, you are welcome to do so. We are looking forward to some very special days and hope to share this unforgettable experience with you, our treasured friends and family.',
+    planning_label: 'Planning',
+    ceremony: 'Ceremony',
+    dinner:   'Dinner',
+    party:    'Celebration',
+    address_label:    'Address',
+    dresscode_label:  'Dress Code',
+    dresscode_value:  'Gala / Festive',
+    inv_outro1: 'We are so looking forward to welcoming you there!',
+    inv_outro2: 'Please let us know your arrival time at İzmir Airport and whether you would like to make use of the hotel accommodation and transportation.',
+    sign_off:   'With love,',
+    venue_label: 'Venue',
+    maps_btn:    'Open in Google Maps',
+    logistics_label: 'Practical',
+    logistics_title: 'Hotel & Transport',
+    logistics_intro: 'We are happy to arrange your stay from <strong>15 to 17 August</strong> at a nearby hotel, as well as transport to and from İzmir Airport. Please indicate your preferences in the RSVP.',
+    hotel_title:    'Hotel',
+    hotel_text:     'Accommodation from 15 to 17 August is taken care of by us. Please let us know if you would like to make use of this.',
+    transport_title: 'Transport',
+    transport_text:  'Transport from İzmir Airport to the venue and back is available. Please share your arrival time in the RSVP.',
+    airport_title:   'Airport',
+    airport_text:    'Nearest airport: <strong>İzmir Adnan Menderes (ADB)</strong>. Flight tickets are to be arranged by yourselves.',
+    logistics_outro: 'If desired, we are happy to take care of your accommodation from 15 to 17 August at a nearby hotel, as well as transport from the airport to the wedding venue and back. Please let us know in the RSVP if you would like to make use of this.',
+    rsvp_label:  'Register',
+    rsvp_intro:  'Please let us know when you will arrive at İzmir Airport and whether you would like to make use of hotel accommodation and transport.',
+    form_name:        'Name(s) *',
+    form_name_ph:     'Your name (and partner if applicable)',
+    form_guests:      'Number of guests *',
+    form_guests_ph:   'Choose...',
+    guests_1: '1 person', guests_2: '2 people', guests_3: '3 people', guests_4: '4 people', guests_5: '5 or more',
+    form_attending:   'Attending?',
+    form_yes:         "Yes, I'll be there!",
+    form_no:          'Unfortunately not',
+    form_arrival:     'Arrival time at İzmir Airport (if already known)',
+    form_hotel:       'Hotel needed? (15–17 Aug)',
+    form_no_thanks:   'No, thank you',
+    form_yes_please:  'Yes, please!',
+    form_transport:   'Transport needed?',
+    form_diet:        'Dietary requirements / allergies',
+    form_diet_ph:     'E.g. vegetarian, gluten-free…',
+    form_message:     'Message to Çisem & Floris',
+    form_message_ph:  'A kind message is always welcome!',
+    form_email:       'Email address (optional)',
+    form_email_ph:    'For a confirmation',
+    form_submit:      'Submit ✦',
+    rsvp_success:     '🌸 Thank you! We are so looking forward to seeing you!',
+    rsvp_error:       'Something went wrong. Please try again or send a WhatsApp to Saskia.',
+    footer_contact:   'Questions? Please contact Saskia Onstwedder-List',
+  },
+
+  tr: {
+    nav_countdown:    'Geri Sayım',
+    nav_invitation:   'Davet',
+    nav_venue:        'Mekan',
+    nav_logistics:    'Otel & Ulaşım',
+    hero_tagline:     'Evleniyoruz!',
+    scroll_hint:      'Kaydır',
+    countdown_label:  'Az kaldı',
+    countdown_title:  'Neredeyse!',
+    cd_days:  'Gün',
+    cd_hours: 'Saat',
+    cd_mins:  'Dakika',
+    cd_secs:  'Saniye',
+    inv_p1: 'Büyük bir sevinçle evleneceğimizi duyuruyoruz! Aşkımızı sizinle kutlamaktan büyük mutluluk duyarız.',
+    inv_p2: 'Sizi Türkiye\'nin güzel Çeşme, İzmir\'inde düzenlenecek düğün törenimize, akşam yemeğimize ve eğlencemize davet etmekten onur duyuyoruz. İsterseniz 15–17 Ağustos tarihleri arasında yakın bir otelde konaklama ve İzmir Havalimanı\'ndan düğün mekanına ulaşım konusunda yardımcı olmaktan memnuniyet duyarız. Tabii, bu düzenlemeleri kendiniz yapmayı tercih ederseniz de son derece anlayışla karşılarız. Güzel günler yaşayacağımıza inanıyor, bu unutulmaz anları sizinle, sevgili dostlarımız ve ailemizle paylaşmayı sabırsızlıkla bekliyoruz.',
+    planning_label: 'Program',
+    ceremony: 'Tören',
+    dinner:   'Akşam Yemeği',
+    party:    'Parti',
+    address_label:    'Adres',
+    dresscode_label:  'Kıyafet Kodu',
+    dresscode_value:  'Gala / Şık',
+    inv_outro1: 'Sizi orada ağırlamaktan büyük mutluluk duyacağız!',
+    inv_outro2: 'İzmir Havalimanı\'na varış saatinizi ve otel ile ulaşım hizmetinden yararlanmak isteyip istemediğinizi bize bildirmenizi rica ederiz.',
+    sign_off:   'Sevgiyle,',
+    venue_label: 'Mekan',
+    maps_btn:    "Google Maps'te Aç",
+    logistics_label: 'Pratik Bilgiler',
+    logistics_title: 'Otel & Ulaşım',
+    logistics_intro: '<strong>15–17 Ağustos</strong> tarihleri arasında yakın bir otelde konaklama ve İzmir Havalimanı\'na gidiş-dönüş ulaşımınızı sağlamaktan memnuniyet duyarız. Lütfen tercihlerinizi RSVP formunda belirtin.',
+    hotel_title:    'Otel',
+    hotel_text:     '15–17 Ağustos tarihleri arasındaki konaklama tarafımızdan karşılanacaktır. Yararlanmak isterseniz bize bildirin.',
+    transport_title: 'Ulaşım',
+    transport_text:  'İzmir Havalimanı\'ndan düğün mekanına ve geri dönüş için ulaşım mevcuttur. RSVP formunda varış saatinizi paylaşın.',
+    airport_title:   'Havalimanı',
+    airport_text:    'En yakın havalimanı: <strong>İzmir Adnan Menderes (ADB)</strong>. Uçuş biletleri kendiniz tarafından düzenlenir.',
+    logistics_outro: 'İsterseniz 15–17 Ağustos tarihleri arasında yakın bir otelde konaklama ve havalimanından düğün mekanına gidiş-dönüş ulaşımı sağlamaktan memnuniyet duyarız. Yararlanmak isterseniz lütfen RSVP formunda belirtin.',
+    rsvp_label:  'Kayıt',
+    rsvp_intro:  'İzmir Havalimanı\'na varış saatinizi ve otel ile ulaşım hizmetinden yararlanmak isteyip istemediğinizi bize bildirmenizi rica ederiz.',
+    form_name:        'Ad / Adlar *',
+    form_name_ph:     'Adınız (ve varsa eşinizin adı)',
+    form_guests:      'Kişi sayısı *',
+    form_guests_ph:   'Seçiniz...',
+    guests_1: '1 kişi', guests_2: '2 kişi', guests_3: '3 kişi', guests_4: '4 kişi', guests_5: '5 veya daha fazla',
+    form_attending:   'Katılıyor musunuz?',
+    form_yes:         'Evet, katılacağım!',
+    form_no:          'Maalesef gelemiyorum',
+    form_arrival:     'İzmir Havalimanı\'na varış saati (biliyorsanız)',
+    form_hotel:       'Otel gerekli mi? (15–17 Ağu)',
+    form_no_thanks:   'Hayır, teşekkürler',
+    form_yes_please:  'Evet, lütfen!',
+    form_transport:   'Ulaşım gerekli mi?',
+    form_diet:        'Diyet gereksinimleri / alerjiler',
+    form_diet_ph:     'Örn. vejetaryen, glutensiz…',
+    form_message:     "Çisem & Floris'e mesaj",
+    form_message_ph:  'Güzel bir mesaj her zaman hoş karşılanır!',
+    form_email:       'E-posta adresi (isteğe bağlı)',
+    form_email_ph:    'Onay için',
+    form_submit:      'Gönder ✦',
+    rsvp_success:     '🌸 Teşekkürler! Sizi görmek için sabırsızlanıyoruz!',
+    rsvp_error:       "Bir şeyler ters gitti. Lütfen tekrar deneyin veya Saskia'ya WhatsApp gönderin.",
+    footer_contact:   'Sorularınız için Saskia Onstwedder-List ile iletişime geçin',
+  }
+};
+
+let currentLang = 'nl';
+
+function applyLang(lang) {
+  currentLang = lang;
+  const t = translations[lang];
+  if (!t) return;
+
+  // Text content
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+
+  // innerHTML (for keys with <strong> etc.)
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+
+  // Placeholders
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const key = el.getAttribute('data-i18n-ph');
+    if (t[key] !== undefined) el.placeholder = t[key];
+  });
+
+  // Select options
+  document.querySelectorAll('[data-i18n-opt]').forEach(el => {
+    const key = el.getAttribute('data-i18n-opt');
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+
+  // Active button
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+  });
+
+  // html lang attribute
+  document.documentElement.lang = lang;
+}
+
+// Language buttons
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => applyLang(btn.getAttribute('data-lang')));
+});
+
+/* ── MUSIC ── */
+const audio = document.getElementById('bg-music');
+const musicBtn = document.getElementById('music-btn');
+let playing = false;
+
+musicBtn.addEventListener('click', () => {
+  if (playing) {
+    audio.pause();
+    musicBtn.textContent = '🎵';
+    musicBtn.classList.remove('playing');
+    playing = false;
+  } else {
+    audio.play().catch(() => {});
+    musicBtn.textContent = '⏸';
+    musicBtn.classList.add('playing');
+    playing = true;
+  }
+});
+
+/* ── PETALS ── */
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwP2I-FeutrnI0WDA8gvXu-0HsewRTk6l9LVL5Cbkj8A35e3w6PAQuD2dHvxx8Y1qei/exec';
 const WEDDING_DATE = new Date('2026-08-16T14:00:00Z');
 
-// Petals
 (function() {
   const symbols = ['🎻','🎺','🎻','🎺'];
   const el = document.getElementById('petals');
@@ -713,7 +934,7 @@ const WEDDING_DATE = new Date('2026-08-16T14:00:00Z');
   }
 })();
 
-// Countdown
+/* ── COUNTDOWN ── */
 function tick() {
   const d = WEDDING_DATE - new Date();
   if (d <= 0) {
@@ -727,34 +948,35 @@ function tick() {
 }
 tick(); setInterval(tick, 1000);
 
-// Nav
+/* ── NAV ── */
 const nav = document.getElementById('main-nav');
 window.addEventListener('scroll', () => nav.classList.toggle('visible', window.scrollY > window.innerHeight * 0.5));
 
-// Fade-in on scroll
+/* ── FADE-IN ── */
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
 }, { threshold: 0.1 });
 document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
 
-// RSVP
+/* ── RSVP ── */
 document.getElementById('rsvp-form').addEventListener('submit', async function(e) {
   e.preventDefault();
   const btn = document.getElementById('submit-btn');
   const msg = document.getElementById('rsvp-msg');
   const data = Object.fromEntries(new FormData(this));
-  btn.disabled = true; btn.textContent = 'Versturen…';
+  btn.disabled = true; btn.textContent = '…';
   msg.className = ''; msg.textContent = '';
   try {
-    const params = new URLSearchParams({ ...data, timestamp: new Date().toISOString() });
+    const params = new URLSearchParams({ ...data, timestamp: new Date().toISOString(), lang: currentLang });
     await fetch(`${APPS_SCRIPT_URL}?${params}`, { method: 'GET', mode: 'no-cors' });
-    msg.textContent = '🌸 Dankjewel! We kijken er enorm naar uit jou te zien!';
+    msg.textContent = translations[currentLang].rsvp_success;
     this.reset();
   } catch {
     msg.className = 'error';
-    msg.textContent = 'Er ging iets mis. Probeer het opnieuw of stuur een WhatsApp naar Saskia.';
+    msg.textContent = translations[currentLang].rsvp_error;
   } finally {
-    btn.disabled = false; btn.textContent = 'Versturen ✦';
+    btn.disabled = false;
+    btn.textContent = translations[currentLang].form_submit;
   }
 });
 </script>
