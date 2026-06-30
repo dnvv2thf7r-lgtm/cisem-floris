@@ -56,9 +56,9 @@
     .hero-date { margin-top: 1.2rem; font-size: clamp(1rem,3.5vw,1.3rem); letter-spacing: .5rem; color: rgba(255,255,255,0.92); font-weight: 400; }
     .hero-rule { width: 100px; height: 1px; background: rgba(255,255,255,0.45); margin: 1.4rem auto; }
     .hero-venue { font-size: clamp(1rem,3vw,1.3rem); font-style: italic; color: rgba(255,255,255,0.95); letter-spacing: .08rem; }
-    .scroll-hint { margin-top: 2.5rem; font-size: .7rem; letter-spacing: .25rem; text-transform: uppercase; color: rgba(255,255,255,0.6); animation: bounce 2s ease-in-out infinite; }
-    @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
-    .scroll-hint::after { content: ' ↓'; }
+    .music-prompt { position: absolute; bottom: 2.2rem; left: 50%; transform: translateX(-50%); font-size: clamp(1rem, 3vw, 1.25rem); letter-spacing: .12rem; color: rgba(255,255,255,0.95); cursor: pointer; background: rgba(0,0,0,0.22); border: 1px solid rgba(255,255,255,0.45); border-radius: 2rem; padding: .65rem 1.8rem; backdrop-filter: blur(6px); animation: mpulse 2.2s ease-in-out infinite; white-space: nowrap; z-index: 3; user-select: none; }
+    @keyframes mpulse { 0%,100% { opacity: 1; transform: translateX(-50%) scale(1); } 50% { opacity: 0.75; transform: translateX(-50%) scale(0.97); } }
+    .music-prompt.hidden { display: none; }
 
     /* ── COUNTDOWN ── */
     #countdown { background: var(--cream); color: var(--ink); padding: 4rem 1.5rem; }
@@ -76,13 +76,23 @@
     h2 { font-family: 'Great Vibes', cursive; font-size: clamp(2.2rem,7vw,3.4rem); color: var(--ink); margin-bottom: 1rem; }
     .body-text { font-size: clamp(1rem,2.5vw,1.12rem); line-height: 1.9; color: var(--muted); font-weight: 300; }
 
+    /* ── INVITE TEXT (between countdown and artwork) ── */
+    #invite-text { background: var(--cream); }
+    .inv-lead {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      color: var(--gold);
+      line-height: 1.35;
+      display: block;
+      margin-bottom: 1.4rem;
+    }
+
     /* ── ARTWORK / INVITATION ── */
     #invitation {
       background-color: var(--cream);
       min-height: calc(100vw * 1.435);
       position: relative;
-      padding: 1.5rem 1.5rem 5rem;
-      display: flex; align-items: flex-start; justify-content: center;
+      padding: 0;
     }
     #invitation::before {
       content: ''; position: absolute; inset: 0;
@@ -93,25 +103,6 @@
       -webkit-mask-position: top center; mask-position: top center;
       -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
       filter: blur(0.5px); pointer-events: none; z-index: 0;
-    }
-    #invitation .section-inner { position: relative; z-index: 1; padding-top: 2rem; }
-
-    /* Lead sentence on painting — Great Vibes, large, gold */
-    .inv-lead {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(2rem, 6vw, 3.2rem);
-      color: var(--gold);
-      line-height: 1.35;
-      display: block;
-      margin-bottom: 1.4rem;
-      text-shadow: 0 1px 6px rgba(0,0,0,0.55), 0 0 20px rgba(0,0,0,0.3);
-    }
-    /* Body text on painting — larger, white, dark shadow for legibility */
-    #invitation .body-text {
-      font-size: clamp(1.1rem, 3vw, 1.3rem);
-      color: #fff;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.7), 0 0 16px rgba(0,0,0,0.5);
-      font-weight: 400;
     }
 
     /* ── PLANNING (below painting) ── */
@@ -224,7 +215,8 @@
 <nav id="main-nav">
   <div class="nav-links">
     <a href="#countdown" data-i18n="nav_countdown">Aftellen</a>
-    <a href="#invitation" data-i18n="nav_invitation">Uitnodiging</a>
+    <a href="#invite-text" data-i18n="nav_invitation">Uitnodiging</a>
+    <a href="#planning" data-i18n="nav_planning">Planning</a>
     <a href="#venue" data-i18n="nav_venue">Locatie</a>
     <a href="#logistics" data-i18n="nav_logistics">Hotel & Vervoer</a>
     <a href="#rsvp">RSVP</a>
@@ -250,7 +242,7 @@
   <div class="hero-date fade-in">16 · 08 · 2026</div>
   <div class="hero-rule"></div>
   <p class="hero-venue fade-in">Villa Marquem Çeşme &nbsp;·&nbsp; İzmir, Türkiye</p>
-  <span class="scroll-hint" data-i18n="scroll_hint">Scroll</span>
+  <div class="music-prompt" id="music-prompt" data-i18n="music_prompt">♪ Tik hier voor muziek</div>
 </section>
 
 <!-- ─── COUNTDOWN ─── -->
@@ -267,10 +259,9 @@
   </div>
 </section>
 
-<!-- ─── INVITATION + ARTWORK ─── -->
-<section id="invitation">
+<!-- ─── INVITATION TEXT ─── -->
+<section id="invite-text">
   <div class="section-inner">
-    <!-- First sentence: large script, stands out -->
     <span class="inv-lead fade-in" data-i18n="inv_lead">Met grote vreugde kondigen wij aan dat we gaan trouwen!</span>
 
     <p class="body-text fade-in" data-i18n="inv_follow">
@@ -284,6 +275,9 @@
     </p>
   </div>
 </section>
+
+<!-- ─── ARTWORK (purely decorative) ─── -->
+<section id="invitation"></section>
 
 <!-- ─── PLANNING (starts below painting) ─── -->
 <section id="planning">
@@ -448,8 +442,8 @@
 <footer>
   <div class="footer-names">Çisem & Floris</div>
   <div class="footer-date">16 · 08 · 2026 &nbsp;·&nbsp; Çeşme, İzmir</div>
-  <div class="footer-contact">
-    <span data-i18n="footer_contact">Vragen? Neem contact op met Saskia Onstwedder-List</span><br />
+  <div class="footer-contact" data-i18n-html="footer_contact_block">
+    Vragen? Neem contact op met Saskia Onstwedder-List<br />
     <a href="https://wa.me/31640590089">WhatsApp / bellen: +31 640 590 089</a><br />
     <a href="mailto:saskialist62@gmail.com">saskialist62@gmail.com</a>
   </div>
@@ -461,10 +455,11 @@ const translations = {
   nl: {
     nav_countdown:    'Aftellen',
     nav_invitation:   'Uitnodiging',
+    nav_planning:     'Planning',
     nav_venue:        'Locatie',
     nav_logistics:    'Hotel & Vervoer',
     hero_tagline:     'Wij gaan trouwen!',
-    scroll_hint:      'Scroll',
+    music_prompt:     '♪ Tik hier voor muziek',
     countdown_label:  'Nog even geduld',
     countdown_title:  'Bijna zover!',
     cd_days: 'Dagen', cd_hours: 'Uren', cd_mins: 'Minuten', cd_secs: 'Seconden',
@@ -497,16 +492,17 @@ const translations = {
     rsvp_processing: 'Versturen… Even geduld, verlaat deze pagina niet.',
     rsvp_success: '🌸 Dankjewel! We kijken er enorm naar uit jou te zien!',
     rsvp_error: 'Er ging iets mis. Probeer het opnieuw of stuur een WhatsApp naar Saskia.',
-    footer_contact: 'Vragen? Neem contact op met Saskia Onstwedder-List',
+    footer_contact_block: 'Vragen? Neem contact op met Saskia Onstwedder-List<br /><a href="https://wa.me/31640590089">WhatsApp / bellen: +31 640 590 089</a><br /><a href="mailto:saskialist62@gmail.com">saskialist62@gmail.com</a>',
   },
 
   en: {
     nav_countdown:    'Countdown',
     nav_invitation:   'Invitation',
+    nav_planning:     'Planning',
     nav_venue:        'Venue',
     nav_logistics:    'Hotel & Transport',
     hero_tagline:     "We're getting married!",
-    scroll_hint:      'Scroll',
+    music_prompt:     '♪ Tap here for music',
     countdown_label:  'Just a little longer',
     countdown_title:  'Almost time!',
     cd_days: 'Days', cd_hours: 'Hours', cd_mins: 'Minutes', cd_secs: 'Seconds',
@@ -539,16 +535,17 @@ const translations = {
     rsvp_processing: 'Submitting… Please do not leave this page.',
     rsvp_success: '🌸 Thank you! We are so looking forward to seeing you!',
     rsvp_error: 'Something went wrong. Please try again or send a WhatsApp to Saskia.',
-    footer_contact: 'Questions? Please contact Saskia Onstwedder-List',
+    footer_contact_block: 'Questions? Please contact Saskia Onstwedder-List<br /><a href="https://wa.me/31640590089">WhatsApp / call: +31 640 590 089</a><br /><a href="mailto:saskialist62@gmail.com">saskialist62@gmail.com</a>',
   },
 
   tr: {
     nav_countdown:    'Geri Sayım',
     nav_invitation:   'Davet',
+    nav_planning:     'Program',
     nav_venue:        'Mekan',
     nav_logistics:    'Otel & Ulaşım',
     hero_tagline:     'Evleniyoruz!',
-    scroll_hint:      'Kaydır',
+    music_prompt:     '♪ Müzik için buraya tıklayın',
     countdown_label:  'Az kaldı',
     countdown_title:  'Neredeyse!',
     cd_days: 'Gün', cd_hours: 'Saat', cd_mins: 'Dakika', cd_secs: 'Saniye',
@@ -580,8 +577,8 @@ const translations = {
     form_submit: 'Gönder ✦',
     rsvp_processing: 'Gönderiliyor… Lütfen bu sayfadan ayrılmayın.',
     rsvp_success: '🌸 Teşekkürler! Sizi görmek için sabırsızlanıyoruz!',
-    rsvp_error: "Bir şeyler ters gitti. Lütfen tekrar deneyin veya Saskia'ya WhatsApp gönderin.",
-    footer_contact: 'Sorularınız için Saskia Onstwedder-List ile iletişime geçin',
+    rsvp_error: "Bir şeyler ters gitti. Lütfen tekrar deneyin veya Tülay Özkurt'a ulaşın.",
+    footer_contact_block: 'Sorularınız için Tülay Özkurt ile iletişime geçebilirsiniz<br /><a href="https://wa.me/905323962356">WhatsApp / ara: +90 532 396 23 56</a><br /><a href="mailto:tutaste_08@hotmail.com">tutaste_08@hotmail.com</a>',
   }
 };
 
@@ -626,39 +623,48 @@ langSelector.addEventListener('click', (e) => {
 document.addEventListener('click', (e) => { if (!langSelector.contains(e.target)) langSelector.classList.remove('open'); });
 
 /* ── MUSIC ── */
-const audio    = document.getElementById('bg-music');
-const musicBtn = document.getElementById('music-btn');
-const ticker   = document.getElementById('music-ticker');
-let playing = false;
+const audio      = document.getElementById('bg-music');
+const musicBtn   = document.getElementById('music-btn');
+const ticker     = document.getElementById('music-ticker');
+const musicPrompt = document.getElementById('music-prompt');
+let playing    = false;
+let userPaused = false;
 
 function startMusic() {
   audio.play().then(() => {
     musicBtn.textContent = '⏸';
     musicBtn.classList.add('playing');
     ticker.classList.add('active');
+    if (musicPrompt) musicPrompt.classList.add('hidden');
     playing = true;
   }).catch(() => {});
 }
 
-// Try autoplay immediately; most browsers need a user gesture first
+function stopMusic() {
+  audio.pause();
+  musicBtn.textContent = '🎵';
+  musicBtn.classList.remove('playing');
+  ticker.classList.remove('active');
+  playing = false;
+  userPaused = true;
+}
+
+// Try autoplay immediately (works if browser allows it)
 startMusic();
 
-// On first interaction, start if still not playing
-document.addEventListener('click', function onFirstInteraction() {
-  if (!playing) startMusic();
-  document.removeEventListener('click', onFirstInteraction);
-}, true);
-
-musicBtn.addEventListener('click', () => {
-  if (playing) {
-    audio.pause();
-    musicBtn.textContent = '🎵';
-    musicBtn.classList.remove('playing');
-    ticker.classList.remove('active');
-    playing = false;
-  } else {
+// Music prompt button — clicking it starts music
+if (musicPrompt) {
+  musicPrompt.addEventListener('click', (e) => {
+    e.stopPropagation();
+    userPaused = false;
     startMusic();
-  }
+  });
+}
+
+// Floating play/pause button
+musicBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (playing) { stopMusic(); } else { userPaused = false; startMusic(); }
 });
 
 /* ── PETALS ── */
