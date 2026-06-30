@@ -157,10 +157,11 @@
     footer a { color: rgba(255,255,255,.8); }
 
     /* ── NAV ── */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; justify-content: flex-start; padding: .75rem 0; background: rgba(247,242,233,.92); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(184,146,74,.18); font-size: .7rem; letter-spacing: .22rem; text-transform: uppercase; transform: translateY(-100%); transition: transform .3s ease; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; justify-content: center; padding: .75rem 0; background: rgba(247,242,233,.92); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(184,146,74,.18); font-size: .7rem; letter-spacing: .22rem; text-transform: uppercase; transform: translateY(-100%); transition: transform .3s ease; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
     nav::-webkit-scrollbar { display: none; }
     nav.visible { transform: translateY(0); }
     .nav-links { display: flex; gap: 1.2rem; align-items: center; padding: 0 1rem; flex-shrink: 0; }
+    @media (max-width: 600px) { nav { justify-content: flex-start; } }
     .nav-links a { color: var(--muted); text-decoration: none; transition: color .2s; white-space: nowrap; }
     .nav-links a:hover { color: var(--sage); }
 
@@ -195,6 +196,7 @@
       .countdown-box { padding: 1rem 1.1rem; min-width: 68px; }
       .nav-links { gap: .55rem; font-size: .58rem; }
       .hero-ruled-text { font-size: 1.8rem; }
+      #hero .music-prompt { bottom: auto; top: 67%; }
     }
   </style>
 </head>
