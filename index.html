@@ -81,7 +81,7 @@
       background-color: var(--cream);
       min-height: calc(100vw * 1.435);
       position: relative;
-      padding: 5rem 1.5rem;
+      padding: 1.5rem 1.5rem 5rem;
       display: flex; align-items: flex-start; justify-content: center;
     }
     #invitation::before {
@@ -631,6 +631,24 @@ const musicBtn = document.getElementById('music-btn');
 const ticker   = document.getElementById('music-ticker');
 let playing = false;
 
+function startMusic() {
+  audio.play().then(() => {
+    musicBtn.textContent = '⏸';
+    musicBtn.classList.add('playing');
+    ticker.classList.add('active');
+    playing = true;
+  }).catch(() => {});
+}
+
+// Try autoplay immediately; most browsers need a user gesture first
+startMusic();
+
+// On first interaction, start if still not playing
+document.addEventListener('click', function onFirstInteraction() {
+  if (!playing) startMusic();
+  document.removeEventListener('click', onFirstInteraction);
+}, true);
+
 musicBtn.addEventListener('click', () => {
   if (playing) {
     audio.pause();
@@ -639,11 +657,7 @@ musicBtn.addEventListener('click', () => {
     ticker.classList.remove('active');
     playing = false;
   } else {
-    audio.play().catch(() => {});
-    musicBtn.textContent = '⏸';
-    musicBtn.classList.add('playing');
-    ticker.classList.add('active');
-    playing = true;
+    startMusic();
   }
 });
 
