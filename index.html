@@ -355,12 +355,16 @@
     /* Floating language selector */
     .lang-selector {
       position: fixed;
-      bottom: 4.5rem;
+      top: 1.5rem;
       right: 1.5rem;
       z-index: 1001;
       display: flex;
       flex-direction: column;
       gap: .35rem;
+    }
+    /* Hide non-active flags when collapsed */
+    .lang-selector:not(.open) .lang-btn:not(.active) {
+      display: none;
     }
     .lang-btn {
       background: rgba(247,242,233,0.92);
@@ -372,11 +376,11 @@
       font-size: 1.45rem;
       line-height: 1;
       backdrop-filter: blur(8px);
-      transition: all .2s;
+      transition: transform .2s, box-shadow .2s;
       box-shadow: 0 2px 12px rgba(0,0,0,0.10);
       padding: 0;
     }
-    .lang-btn:hover { transform: scale(1.1); background: var(--cream); }
+    .lang-btn:hover { transform: scale(1.1); }
     .lang-btn.active { border-color: var(--gold); box-shadow: 0 2px 12px rgba(184,146,74,0.35); }
 
     /* Music button */
@@ -645,10 +649,6 @@
       <label data-i18n="form_message">Bericht aan Çisem & Floris</label>
       <textarea name="message" data-i18n-ph="form_message_ph" placeholder="Een lieve boodschap is altijd welkom!"></textarea>
     </div>
-    <div class="form-row">
-      <label data-i18n="form_email">E-mailadres (optioneel)</label>
-      <input type="email" name="email" data-i18n-ph="form_email_ph" placeholder="Voor een bevestiging" />
-    </div>
     <button type="submit" class="form-submit" id="submit-btn" data-i18n="form_submit">Versturen ✦</button>
     <p id="rsvp-msg"></p>
   </form>
@@ -902,9 +902,26 @@ function applyLang(lang) {
   document.documentElement.lang = lang;
 }
 
-// Language buttons
-document.querySelectorAll('.lang-btn').forEach(btn => {
-  btn.addEventListener('click', () => applyLang(btn.getAttribute('data-lang')));
+// Language selector — click to expand, click flag to switch
+const langSelector = document.querySelector('.lang-selector');
+
+langSelector.addEventListener('click', (e) => {
+  const btn = e.target.closest('.lang-btn');
+  if (!btn) return;
+
+  if (!langSelector.classList.contains('open')) {
+    // Collapsed → expand
+    langSelector.classList.add('open');
+  } else {
+    // Expanded → switch language and collapse
+    applyLang(btn.getAttribute('data-lang'));
+    langSelector.classList.remove('open');
+  }
+});
+
+// Collapse when clicking outside
+document.addEventListener('click', (e) => {
+  if (!langSelector.contains(e.target)) langSelector.classList.remove('open');
 });
 
 /* ── MUSIC ── */
