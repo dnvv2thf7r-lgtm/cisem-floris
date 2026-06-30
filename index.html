@@ -32,8 +32,8 @@
 
     /* ── PETALS ── */
     @keyframes petalFall {
-      0%   { transform: translateY(-60px) rotate(0deg) translateX(0); opacity: 0.8; }
-      100% { transform: translateY(110vh) rotate(400deg) translateX(60px); opacity: 0; }
+      0%   { transform: translateY(-60px) rotate(0deg) translateX(0); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(400deg) translateX(60px); opacity: 0.3; }
     }
     .petal {
       position: fixed; top: -60px; pointer-events: none;
@@ -68,7 +68,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(143, 148, 119, 0.42);
+      background: rgba(143, 148, 119, 0.22);
       z-index: 1;
     }
     /* All hero text above the blurred photo */
@@ -82,6 +82,7 @@
       width: 100%;
       max-width: 480px;
       margin-bottom: 2.5rem;
+      margin-top: -6rem;
     }
     .hero-ruled::before,
     .hero-ruled::after {
@@ -134,10 +135,10 @@
       margin: 1.4rem auto;
     }
     .hero-venue {
-      font-size: clamp(.85rem, 2.5vw, 1rem);
+      font-size: clamp(1rem, 3vw, 1.3rem);
       font-style: italic;
-      color: rgba(255,255,255,0.75);
-      letter-spacing: .05rem;
+      color: rgba(255,255,255,0.95);
+      letter-spacing: .08rem;
     }
     .scroll-hint {
       margin-top: 2.5rem;
@@ -217,14 +218,14 @@
       /* Mask fades tied to the image dimensions */
       -webkit-mask-image: linear-gradient(to bottom,
         transparent 0%,
-        rgba(0,0,0,0.55) 7%,
-        rgba(0,0,0,0.55) 83%,
+        rgba(0,0,0,0.85) 7%,
+        rgba(0,0,0,0.85) 83%,
         transparent 100%
       );
       mask-image: linear-gradient(to bottom,
         transparent 0%,
-        rgba(0,0,0,0.55) 7%,
-        rgba(0,0,0,0.55) 83%,
+        rgba(0,0,0,0.85) 7%,
+        rgba(0,0,0,0.85) 83%,
         transparent 100%
       );
       /* Lock mask to artwork's aspect ratio (2600/1812) */
@@ -234,7 +235,7 @@
       mask-position: top center;
       -webkit-mask-repeat: no-repeat;
       mask-repeat: no-repeat;
-      filter: blur(1.5px);
+      filter: blur(0.5px);
       pointer-events: none;
       z-index: 0;
     }
@@ -493,23 +494,19 @@
   <div class="section-inner">
 
     <p class="body-text fade-in" style="text-align:center;">
-      Met grote vreugde kondigen wij aan dat we gaan trouwen!<br />
-      En onze liefde vieren we graag met jou!
+      Met grote vreugde kondigen wij aan dat we gaan trouwen! Onze liefde vieren we graag met jou!
     </p>
 
     <br />
 
     <p class="body-text fade-in" style="text-align:center;">
-      We nodigen jullie uit voor de ceremonie, het diner en het avondfeest.
-      Indien gewenst verzorgen wij met plezier verblijf van 15 tot 17 augustus
-      in een nabijgelegen hotel, evenals het transport vanaf de luchthaven en
-      naar de trouwlocatie. Als jullie dit liever zelf organiseren kan dat
-      natuurlijk ook.
+      We nodigen jullie uit voor de ceremonie, het diner en avondfeest in het prachtige Çeşme, Izmir, Turkije. Met plezier verzorgen wij verblijf voor jullie van 15 tot 17 augustus in een nabijgelegen hotel, evenals het transport vanaf de luchthaven en naar de trouwlocatie. Als jullie dit liever zelf organiseren kan dat natuurlijk ook. We gaan er iets moois van maken en hopen dit samen met jullie, onze dierbare vrienden en familie, te mogen beleven.
     </p>
 
     <br /><br />
 
     <!-- Schedule — PDF style: centered, time + name -->
+    <p class="section-label fade-in" style="margin-top:3rem;">Planning</p>
     <div class="schedule fade-in">
       <div class="schedule-item">
         <span class="schedule-time">17:00</span>
@@ -550,8 +547,7 @@
     <br />
 
     <p class="body-text fade-in" style="text-align:center;">
-      Laat je ons graag uiterlijk voor <strong>1 juli 2026</strong> weten wanneer
-      je arriveert op İzmir luchthaven en of je gebruik wilt maken van het hotel en vervoer?
+      Laat je ons graag weten wanneer je arriveert op de luchthaven van Izmir en of je gebruik wilt maken van het hotel en vervoer?
     </p>
 
     <br /><br />
@@ -594,7 +590,7 @@
       <div class="logistic-card fade-in">
         <div class="icon">🏨</div>
         <h3>Hotel</h3>
-        <p>Verblijf van 15 t/m 17 augustus wordt door ons geregeld. Laat het ons weten als je hier gebruik van wilt maken.</p>
+        <p>Als jullie het fijn vinden verzorgen wij graag verblijf van 15 t/m 17 augustus. Laat het ons weten als je hier gebruik van wilt maken.</p>
       </div>
       <div class="logistic-card fade-in">
         <div class="icon">✈️</div>
@@ -616,8 +612,7 @@
     <p class="section-label fade-in">Aanmelden</p>
     <h2 class="fade-in">RSVP</h2>
     <p class="body-text fade-in">
-      Laat je ons graag uiterlijk voor <strong>1 juli 2026</strong> weten wanneer
-      je arriveert op İzmir luchthaven en of je gebruik wilt maken van het hotel en vervoer?
+      Laat je ons graag weten wanneer je arriveert op Izmir luchthaven en of je gebruik wilt maken van hotel en vervoer?
     </p>
   </div>
   <form class="rsvp-form fade-in" id="rsvp-form">
@@ -647,7 +642,7 @@
       </div>
     </div>
     <div class="form-row">
-      <label>Aankomsttijd İzmir luchthaven</label>
+      <label>Aankomsttijd İzmir luchthaven (als je het al weet)</label>
       <input type="datetime-local" name="arrival" />
     </div>
     <div class="form-two">
