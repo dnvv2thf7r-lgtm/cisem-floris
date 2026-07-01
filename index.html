@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script>if (history.scrollRestoration) history.scrollRestoration = 'manual';</script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -186,6 +187,11 @@
     @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
     .ticker-note { margin-right: .5rem; flex-shrink: 0; padding-left: .6rem; color: var(--gold); font-size: .8rem; }
 
+    /* ── BACK TO TOP ── */
+    .back-top { position: fixed; bottom: 2.8rem; left: 1.5rem; z-index: 1002; background: rgba(247,242,233,0.92); border: 1px solid rgba(184,146,74,.3); border-radius: 2rem; padding: .5rem 1.1rem; font-family: 'Cormorant Garamond', serif; font-size: .78rem; letter-spacing: .08rem; color: var(--muted); cursor: pointer; backdrop-filter: blur(8px); box-shadow: 0 2px 12px rgba(0,0,0,0.10); opacity: 0; pointer-events: none; transform: translateY(6px); transition: opacity .25s, transform .25s, color .2s; }
+    .back-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .back-top:hover { color: var(--gold); background: var(--cream); }
+
     /* ── FADE-IN ── */
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
@@ -210,6 +216,7 @@
 </audio>
 
 <button class="music-btn" id="music-btn" title="Play / Pause music" aria-label="Play music">🎵</button>
+<button class="back-top" id="back-top" aria-label="Back to top"><span data-i18n="back_top">Wij gaan trouwen!</span> ↑</button>
 
 <div class="music-ticker" id="music-ticker">
   <span class="ticker-note">♪</span>
@@ -277,7 +284,7 @@
     <br />
 
     <p class="body-text fade-in" data-i18n="inv_p2">
-      We nodigen jullie uit voor de ceremonie, het diner en avondfeest in het prachtige Çeşme, Izmir, Turkije. Met plezier verzorgen wij verblijf voor jullie van 15 tot 17 augustus in een nabijgelegen hotel, evenals het transport vanaf de luchthaven en naar de trouwlocatie. Als jullie dit liever zelf organiseren kan dat natuurlijk ook. We gaan er iets moois van maken en hopen dit samen met jullie, onze dierbare vrienden en familie, te mogen beleven.
+      We nodigen jullie uit voor de ceremonie, het diner en avondfeest op 16 augustus in het prachtige Çeşme, Izmir, Turkije. Met plezier verzorgen wij verblijf voor jullie van 15 tot 17 augustus in een nabijgelegen hotel, evenals het transport vanaf de luchthaven en naar de trouwlocatie. Als jullie dit liever zelf organiseren kan dat natuurlijk ook. We gaan er iets moois van maken en hopen dit samen met jullie, onze dierbare vrienden en familie, te mogen beleven.
     </p>
   </div>
 </section>
@@ -459,13 +466,14 @@ const translations = {
     nav_venue:        'Locatie',
     nav_logistics:    'Hotel & Vervoer',
     hero_tagline:     'Wij gaan trouwen!',
+    back_top:         'Wij gaan trouwen!',
     music_prompt:     '♪ Tik hier voor muziek',
     countdown_label:  'Nog even geduld',
     countdown_title:  'Bijna zover!',
     cd_days: 'Dagen', cd_hours: 'Uren', cd_mins: 'Minuten', cd_secs: 'Seconden',
     inv_lead:   'Met grote vreugde kondigen wij aan dat we gaan trouwen!',
     inv_follow: 'Onze liefde vieren we graag met jou!',
-    inv_p2: 'We nodigen jullie uit voor de ceremonie, het diner en avondfeest in het prachtige Çeşme, Izmir, Turkije. Met plezier verzorgen wij verblijf voor jullie van 15 tot 17 augustus in een nabijgelegen hotel, evenals het transport vanaf de luchthaven en naar de trouwlocatie. Als jullie dit liever zelf organiseren kan dat natuurlijk ook. We gaan er iets moois van maken en hopen dit samen met jullie, onze dierbare vrienden en familie, te mogen beleven.',
+    inv_p2: 'We nodigen jullie uit voor de ceremonie, het diner en avondfeest op 16 augustus in het prachtige Çeşme, Izmir, Turkije. Met plezier verzorgen wij verblijf voor jullie van 15 tot 17 augustus in een nabijgelegen hotel, evenals het transport vanaf de luchthaven en naar de trouwlocatie. Als jullie dit liever zelf organiseren kan dat natuurlijk ook. We gaan er iets moois van maken en hopen dit samen met jullie, onze dierbare vrienden en familie, te mogen beleven.',
     planning_label: 'Planning',
     ceremony: 'Ceremonie', dinner: 'Diner', party: 'Feest',
     address_label: 'Adres', dresscode_label: 'Dresscode', dresscode_value: 'Gala / Feestelijk',
@@ -502,15 +510,16 @@ const translations = {
     nav_venue:        'Venue',
     nav_logistics:    'Hotel & Transport',
     hero_tagline:     "We're getting married!",
+    back_top:         "We're getting married!",
     music_prompt:     '♪ Tap here for music',
     countdown_label:  'Just a little longer',
     countdown_title:  'Almost time!',
     cd_days: 'Days', cd_hours: 'Hours', cd_mins: 'Minutes', cd_secs: 'Seconds',
     inv_lead:   'With great joy, we are delighted to announce that we are getting married!',
     inv_follow: 'We would love to celebrate our love together with you.',
-    inv_p2: 'We warmly invite you to join us for our wedding ceremony, dinner and evening celebration in the beautiful town of Çeşme, İzmir, Türkiye. We are pleased to offer accommodation for you from 15 to 17 August at a nearby hotel, as well as transportation from İzmir Airport to the wedding venue. Of course, if you prefer to arrange this yourself, you are welcome to do so. We are looking forward to some very special days and hope to share this unforgettable experience with you, our treasured friends and family.',
+    inv_p2: 'We warmly invite you to join us for our wedding ceremony, dinner and evening celebration on 16th of August in the beautiful town of Çeşme, İzmir, Türkiye. We are pleased to offer accommodation for you from 15 to 17 August at a nearby hotel, as well as transportation from İzmir Airport to the wedding venue. Of course, if you prefer to arrange this yourself, you are welcome to do so. We are looking forward to this very special day and hope to share this unforgettable experience with you, our treasured friends and family.',
     planning_label: 'Planning',
-    ceremony: 'Ceremony', dinner: 'Dinner', party: 'Celebration',
+    ceremony: 'Ceremony', dinner: 'Dinner', party: 'Party',
     address_label: 'Address', dresscode_label: 'Dress Code', dresscode_value: 'Gala / Festive',
     inv_outro1: 'We are so looking forward to welcoming you there!',
     inv_outro2: 'Please let us know your arrival time at İzmir Airport and whether you would like to make use of the hotel accommodation and transportation.',
@@ -545,35 +554,36 @@ const translations = {
     nav_venue:        'Mekan',
     nav_logistics:    'Otel & Ulaşım',
     hero_tagline:     'Evleniyoruz!',
+    back_top:         'Evleniyoruz!',
     music_prompt:     '♪ Müzik için buraya tıklayın',
     countdown_label:  'Az kaldı',
-    countdown_title:  'Neredeyse!',
+    countdown_title:  'Geri sayım başladı!',
     cd_days: 'Gün', cd_hours: 'Saat', cd_mins: 'Dakika', cd_secs: 'Saniye',
-    inv_lead:   'Büyük bir sevinçle evleneceğimizi duyuruyoruz!',
-    inv_follow: 'Aşkımızı sizinle kutlamaktan büyük mutluluk duyarız.',
-    inv_p2: "Sizi Türkiye'nin güzel Çeşme, İzmir'inde düzenlenecek düğün törenimize, akşam yemeğimize ve eğlencemize davet etmekten onur duyuyoruz. İsterseniz 15–17 Ağustos tarihleri arasında yakın bir otelde konaklama ve İzmir Havalimanı'ndan düğün mekanına ulaşım konusunda yardımcı olmaktan memnuniyet duyarız. Tabii, bu düzenlemeleri kendiniz yapmayı tercih ederseniz de son derece anlayışla karşılarız. Güzel günler yaşayacağımıza inanıyor, bu unutulmaz anları sizinle, sevgili dostlarımız ve ailemizle paylaşmayı sabırsızlıkla bekliyoruz.",
+    inv_lead:   'Büyük bir heyecanla, hayatlarımızı birleştireceğimizi duyurmak istiyoruz!',
+    inv_follow: '',
+    inv_p2: "En özel günümüzde sevincimizi sizlerle paylaşmaktan büyük mutluluk duyacağız. 16 Ağustos'ta İzmir'in güzel ilçesi Çeşme'deki düğünümüzde sizleri de aramızda görmekten onur duyarız. Dilerseniz 15–17 Ağustos tarihleri arasında yakın bir otelde konaklamanız ve İzmir Adnan Menderes Havalimanı'ndan düğün mekânına ulaşımınız konusunda size yardımcı olmaktan memnun oluruz. Kendi planlarınızı yapmayı tercih ederseniz, elbette bu konuda tamamen serbestsiniz. Sevdiklerimizle bir araya geleceğimiz, kahkahalar, müzik ve unutulmaz anılarla dolu bu özel günü sizlerle paylaşmak için sabırsızlanıyoruz.",
     planning_label: 'Program',
     ceremony: 'Tören', dinner: 'Akşam Yemeği', party: 'Parti',
-    address_label: 'Adres', dresscode_label: 'Kıyafet', dresscode_value: 'Gala / Şık',
+    address_label: 'Adres', dresscode_label: 'Dresscode', dresscode_value: 'Gala / Şık',
     inv_outro1: 'Sizi orada ağırlamaktan büyük mutluluk duyacağız!',
     inv_outro2: "İzmir Havalimanı'na varış saatinizi ve otel ile ulaşım hizmetinden yararlanmak isteyip istemediğinizi bize bildirmenizi rica ederiz.",
     sign_off: 'Sevgiyle,',
     venue_label: 'Mekan', maps_btn: "Google Maps'te Aç",
     logistics_label: 'Pratik Bilgiler', logistics_title: 'Otel & Ulaşım',
-    logistics_intro: 'İsterseniz 15–17 Ağustos tarihleri arasında konaklama sağlamaktan memnuniyet duyarız. Yararlanmak isterseniz bize bildirin.',
+    logistics_intro: 'İsterseniz 15–17 Ağustos tarihleri arasında konaklama konusunda size yardımcı olmaktan memnuniyet duyarız. Yararlanmak isterseniz bize bildirin.',
     hotel_title: 'Otel', hotel_text: '15–17 Ağustos tarihleri arasında konaklama.',
     transport_title: 'Ulaşım', transport_text: "İzmir Havalimanı'ndan düğün mekanına ve geri dönüş için ulaşım mevcuttur. RSVP formunda varış saatinizi paylaşın.",
     airport_title: 'Havalimanı', airport_text: 'En yakın havalimanı: <strong>İzmir Adnan Menderes (ADB)</strong>. Uçuş biletleri kendiniz tarafından düzenlenir.',
     rsvp_label: 'Kayıt', rsvp_intro: "İzmir Havalimanı'na varış saatinizi bize bildirmenizi rica ederiz. Bunu daha sonra iletişim kişileri aracılığıyla da yapabilirsiniz.",
-    form_name: 'Ad / Adlar *', form_name_ph: 'Adınız (ve varsa eşinizin adı)',
+    form_name: 'İsim *', form_name_ph: 'Adınız (ve varsa eşinizin adı)',
     form_guests: 'Kişi sayısı *', form_guests_ph: 'Seçiniz...',
     guests_1: '1 kişi', guests_2: '2 kişi', guests_3: '3 kişi', guests_4: '4 kişi', guests_5: '5 veya daha fazla',
-    form_attending: 'Katılıyor musunuz?', form_yes: 'Evet, katılacağım!', form_no: 'Maalesef gelemiyorum',
+    form_attending: 'Katılım durumu', form_yes: 'Evet, katılacağım!', form_no: 'Maalesef gelemiyorum',
     form_arrival: "İzmir Havalimanı'na varış saati (biliyorsanız)",
     form_hotel: 'Otel gerekli mi? (15–17 Ağu)', form_no_thanks: 'Hayır, teşekkürler', form_yes_please: 'Evet, lütfen!',
     form_transport: 'Ulaşım gerekli mi?',
-    form_diet: 'Diyet gereksinimleri / alerjiler', form_diet_ph: 'Örn. vejetaryen, glutensiz…',
-    form_message: "Çisem & Floris'e mesaj", form_message_ph: 'Güzel bir mesaj her zaman hoş karşılanır!',
+    form_diet: 'Beslenme Tercihleri ve Alerjiler', form_diet_ph: 'Örn. vejetaryen, glutensiz…',
+    form_message: "Çisem & Floris'e mesaj", form_message_ph: 'Anı defterimize güzel bir not bırakabilirsiniz.',
     form_submit: 'Gönder ✦',
     rsvp_processing: 'Gönderiliyor… Lütfen bu sayfadan ayrılmayın.',
     rsvp_success: '🌸 Teşekkürler! Sizi görmek için sabırsızlanıyoruz!',
@@ -582,12 +592,23 @@ const translations = {
   }
 };
 
-let currentLang = 'nl';
+// Read language from URL param (?lang=nl/en/tr), fall back to 'nl'
+const _urlLang = new URLSearchParams(window.location.search).get('lang');
+let currentLang = (translations[_urlLang] ? _urlLang : 'nl');
+
+// Always start at top of page
+window.scrollTo(0, 0);
 
 function applyLang(lang) {
   currentLang = lang;
   const t = translations[lang];
   if (!t) return;
+  // Update URL param so sharing preserves the selected language
+  try {
+    const _u = new URL(window.location.href);
+    _u.searchParams.set('lang', lang);
+    history.replaceState(null, '', _u.toString());
+  } catch(e) {}
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (t[key] !== undefined) el.textContent = t[key];
@@ -607,6 +628,9 @@ function applyLang(lang) {
   document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-lang') === lang));
   document.documentElement.lang = lang;
 }
+
+// Apply initial language (from URL param or default 'nl')
+applyLang(currentLang);
 
 /* ── LANGUAGE SELECTOR ── */
 const langSelector = document.querySelector('.lang-selector');
@@ -694,9 +718,15 @@ function tick() {
 }
 tick(); setInterval(tick, 1000);
 
-/* ── NAV ── */
+/* ── NAV + BACK TO TOP ── */
 const nav = document.getElementById('main-nav');
-window.addEventListener('scroll', () => nav.classList.toggle('visible', window.scrollY > window.innerHeight * 0.5));
+const backTop = document.getElementById('back-top');
+window.addEventListener('scroll', () => {
+  const past = window.scrollY > window.innerHeight * 0.5;
+  nav.classList.toggle('visible', past);
+  backTop.classList.toggle('visible', past);
+});
+backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
 /* ── FADE-IN ── */
 const io = new IntersectionObserver(entries => {
