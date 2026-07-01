@@ -188,9 +188,9 @@
     .ticker-note { margin-right: .5rem; flex-shrink: 0; padding-left: .6rem; color: var(--gold); font-size: .8rem; }
 
     /* ── BACK TO TOP ── */
-    .back-top { position: fixed; bottom: 2.8rem; left: 1.5rem; z-index: 1002; height: 46px; display: flex; align-items: center; background: rgba(247,242,233,0.92); border: 1px solid rgba(184,146,74,.3); border-radius: 2rem; padding: 0 1.1rem; font-family: 'Cormorant Garamond', serif; font-size: .78rem; letter-spacing: .08rem; color: var(--muted); cursor: pointer; backdrop-filter: blur(8px); box-shadow: 0 2px 12px rgba(0,0,0,0.10); opacity: 0; pointer-events: none; transform: translateY(6px); transition: opacity .25s, transform .25s, color .2s; }
+    .back-top { position: fixed; bottom: 2.8rem; left: 1.5rem; z-index: 1002; width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; background: rgba(247,242,233,0.92); border: 1px solid rgba(184,146,74,.3); border-radius: 50%; font-size: 1.1rem; color: var(--muted); cursor: pointer; backdrop-filter: blur(8px); box-shadow: 0 2px 12px rgba(0,0,0,0.10); opacity: 0; pointer-events: none; transform: translateY(6px); transition: opacity .25s, transform .25s; }
     .back-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
-    .back-top:hover { color: var(--gold); background: var(--cream); }
+    .back-top:hover { background: var(--cream); transform: translateY(0) scale(1.05); }
 
     /* ── FADE-IN ── */
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
@@ -216,7 +216,7 @@
 </audio>
 
 <button class="music-btn" id="music-btn" title="Play / Pause music" aria-label="Play music">🎵</button>
-<button class="back-top" id="back-top" aria-label="Back to top"><span data-i18n="back_top">Wij gaan trouwen!</span> ↑</button>
+<button class="back-top" id="back-top" aria-label="Back to top">↑</button>
 
 <div class="music-ticker" id="music-ticker">
   <span class="ticker-note">♪</span>
