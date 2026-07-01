@@ -179,10 +179,10 @@
     .nav-divider { color: rgba(184,146,74,.4); user-select: none; font-size: .8rem; }
 
     /* ── MUSIC BUTTON ── */
-    .music-btn { position: fixed; bottom: 2.8rem; right: 1.5rem; z-index: 1002; background: rgba(247,242,233,0.92); border: 1px solid rgba(184,146,74,.3); border-radius: 50%; width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem; backdrop-filter: blur(8px); box-shadow: 0 2px 12px rgba(0,0,0,0.12); opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(6px); transition: opacity .25s, transform .25s, visibility 0s .25s; }
+    .music-btn { position: fixed; top: 2.9rem; right: 1.5rem; z-index: 1002; background: rgba(247,242,233,0.92); border: 1px solid rgba(184,146,74,.3); border-radius: 50%; width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem; backdrop-filter: blur(8px); box-shadow: 0 2px 12px rgba(0,0,0,0.12); opacity: 0; pointer-events: none; transform: translateY(-6px); transition: opacity .25s, transform .25s; }
     .music-btn:hover { background: var(--cream); transform: translateY(0) scale(1.05); }
     .music-btn.playing { border-color: var(--gold); }
-    .music-btn.visible { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); transition: opacity .25s, transform .25s, visibility 0s 0s; }
+    .music-btn.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
 
     /* ── MUSIC TICKER ── */
     .music-ticker { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1001; height: 2.4rem; background: rgba(247,242,233,0.95); backdrop-filter: blur(8px); border-top: 1px solid rgba(184,146,74,.18); overflow: hidden; display: none; align-items: center; }
@@ -193,7 +193,7 @@
     .ticker-note { margin-right: .5rem; flex-shrink: 0; padding-left: .6rem; color: var(--gold); font-size: .8rem; }
 
     /* ── BACK TO TOP ── */
-    .back-top { position: fixed; bottom: 2.8rem; left: 1.5rem; z-index: 1002; width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; background: rgba(247,242,233,0.92); border: 1px solid rgba(184,146,74,.3); border-radius: 50%; font-size: 1.1rem; color: var(--muted); cursor: pointer; backdrop-filter: blur(8px); box-shadow: 0 2px 12px rgba(0,0,0,0.10); opacity: 0; pointer-events: none; transform: translateY(6px); transition: opacity .25s, transform .25s; }
+    .back-top { position: fixed; bottom: 2.8rem; right: 1.5rem; z-index: 1002; width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; background: rgba(247,242,233,0.92); border: 1px solid rgba(184,146,74,.3); border-radius: 50%; font-size: 1.1rem; color: var(--muted); cursor: pointer; backdrop-filter: blur(8px); box-shadow: 0 2px 12px rgba(0,0,0,0.10); opacity: 0; pointer-events: none; transform: translateY(6px); transition: opacity .25s, transform .25s; }
     .back-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
     .back-top:hover { background: var(--cream); transform: translateY(0) scale(1.05); }
 
@@ -699,10 +699,12 @@ function stopMusic() {
 startMusic();
 
 // Music prompt button — clicking it starts music and reveals the play/pause button immediately
+let musicBtnPinned = false; // stays visible once user taps the music prompt
 if (musicPrompt) {
   musicPrompt.addEventListener('click', (e) => {
     e.stopPropagation();
     userPaused = false;
+    musicBtnPinned = true;
     musicBtn.classList.add('visible');
     startMusic();
   });
@@ -748,7 +750,7 @@ window.addEventListener('scroll', () => {
   const past = window.scrollY > window.innerHeight * 0.5;
   nav.classList.toggle('visible', past);
   backTop.classList.toggle('visible', past);
-  if (past) musicBtn.classList.add('visible');
+  if (!musicBtnPinned) musicBtn.classList.toggle('visible', past);
 });
 backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
